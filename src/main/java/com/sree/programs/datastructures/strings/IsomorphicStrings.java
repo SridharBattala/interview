@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.strings;
+package com.sree.programs.datastructures.strings;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.modifiedbinarysearch;
+package com.sree.programs.patterns.modifiedbinarysearch;
 class CeilingOfANumber {
 
 	  public static int searchCeilingOfANumber(int[] arr, int key) {

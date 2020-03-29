@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.cyclicsort;
+package com.sree.programs.patterns.cyclicsort;
 
 import java.util.Arrays;
 

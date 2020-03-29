@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.modifiedbinarysearch;
+package com.sree.programs.patterns.modifiedbinarysearch;
 class BinarySearch {
 
 	  public static int search(int[] arr, int key) {

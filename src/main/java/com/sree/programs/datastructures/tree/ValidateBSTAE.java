@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.tree;
+package com.sree.programs.datastructures.tree;
 /**
  * check below tushor roy vedio
  * https://www.youtube.com/watch?v=MILxfAbIhrE

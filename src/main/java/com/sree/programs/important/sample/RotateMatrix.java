@@ -1,4 +1,4 @@
-package com.sree.leave.programs.important;
+package com.sree.programs.important.sample;
 /**
  * https://www.geeksforgeeks.org/rotate-matrix-90-degree-without-using-extra-space-set-2/
  * @author sridharbattala

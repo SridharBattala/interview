@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.dppalindromicsubsequence;
+package com.sree.programs.patterns.dppalindromicsubsequence;
 class LongestPalindromicSubstringBruteForce {
 
 	  public int findLPSLength(String st) {

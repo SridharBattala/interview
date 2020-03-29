@@ -1,4 +1,4 @@
-package com.sree.leave.programs.algorithms.searching;
+package com.sree.programs.algorithms.searching;
 
 /**
  * First and Last Indices of an Element in a Sorted Array Input: A =

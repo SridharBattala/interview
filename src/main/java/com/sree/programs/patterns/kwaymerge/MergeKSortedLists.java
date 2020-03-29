@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.kwaymerge;
+package com.sree.programs.patterns.kwaymerge;
 
 import java.util.*;
 

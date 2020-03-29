@@ -1,4 +1,4 @@
-package com.sree.leave.programs.sample;
+package com.sree.programs.important.sample;
 
 public class Student {
 	private int id;

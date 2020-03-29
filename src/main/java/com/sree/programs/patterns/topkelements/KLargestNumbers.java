@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.topkelements;
+package com.sree.programs.patterns.topkelements;
 
 import java.util.*;
 

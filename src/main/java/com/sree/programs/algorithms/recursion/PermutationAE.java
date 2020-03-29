@@ -1,4 +1,4 @@
-package com.sree.leave.programs.algorithms.recursion;
+package com.sree.programs.algorithms.recursion;
 
 import java.util.ArrayList;
 import java.util.Arrays;

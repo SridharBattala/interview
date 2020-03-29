@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.dpfibonaccinumbers;
+package com.sree.programs.patterns.dpfibonaccinumbers;
 class StaircaseBruteForce {
 
   public int CountWays(int n) {

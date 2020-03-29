@@ -1,4 +1,4 @@
-package com.sree.leave.programs.javaprogrames;
+package com.sree.programs.important.javaprogrames;
 /**
  * https://www.java2novice.com/java-interview-programs/thread-deadlock/
  * @author sridharbattala

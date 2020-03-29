@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.queue;
+package com.sree.programs.datastructures.queue;
 
 public class Queue {
 

@@ -1,4 +1,4 @@
-package com.sree.leave.programs.javaprogrames;
+package com.sree.programs.important.javaprogrames;
 /**
  * need to findout the program
  * http://tutorials.jenkov.com/java-concurrency/volatile.html

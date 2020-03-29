@@ -1,4 +1,4 @@
-package com.sree.leave.programs.javaprogrames;
+package com.sree.programs.important.javaprogrames;
 
 public class Test {
 	String str1="sridhar";

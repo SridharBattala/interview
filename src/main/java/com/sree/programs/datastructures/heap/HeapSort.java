@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.heap;
+package com.sree.programs.datastructures.heap;
 /*
  * https://www.geeksforgeeks.org/heap-sort/
  */

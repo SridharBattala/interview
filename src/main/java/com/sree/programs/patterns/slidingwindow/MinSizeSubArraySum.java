@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.slidingwindow;
+package com.sree.programs.patterns.slidingwindow;
 
 public class MinSizeSubArraySum {
 public static void main(String args[]) {

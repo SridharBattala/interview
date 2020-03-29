@@ -1,4 +1,4 @@
-package com.sree.leave.programs.important;
+package com.sree.programs.important.sample;
 
 import java.util.ArrayList;
 import java.util.Arrays;

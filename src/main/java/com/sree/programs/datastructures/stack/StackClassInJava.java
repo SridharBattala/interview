@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.stack;
+package com.sree.programs.datastructures.stack;
 
 import java.util.ArrayList;
 import java.util.Stack;

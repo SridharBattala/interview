@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.tree;
+package com.sree.programs.datastructures.tree;
 
 import java.util.ArrayList;
 import java.util.List;

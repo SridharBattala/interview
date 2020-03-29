@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.bitwisexor;
+package com.sree.programs.patterns.bitwisexor;
 
 class MissingNumber {
 

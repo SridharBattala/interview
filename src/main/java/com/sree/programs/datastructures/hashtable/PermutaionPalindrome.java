@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.hashtable;
+package com.sree.programs.datastructures.hashtable;
 
 import java.util.HashMap;
 

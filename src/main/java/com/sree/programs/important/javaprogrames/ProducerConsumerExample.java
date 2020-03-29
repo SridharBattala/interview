@@ -1,4 +1,4 @@
-package com.sree.leave.programs.javaprogrames;
+package com.sree.programs.important.javaprogrames;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

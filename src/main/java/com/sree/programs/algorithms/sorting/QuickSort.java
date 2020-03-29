@@ -1,4 +1,4 @@
-package com.sree.leave.programs.algorithms.sorting;
+package com.sree.programs.algorithms.sorting;
 
 public class QuickSort {
 

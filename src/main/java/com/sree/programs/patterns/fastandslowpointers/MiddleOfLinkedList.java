@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.fastandslowpointers;
+package com.sree.programs.patterns.fastandslowpointers;
 
 class MiddleOfLinkedList {
 	static class ListNode {

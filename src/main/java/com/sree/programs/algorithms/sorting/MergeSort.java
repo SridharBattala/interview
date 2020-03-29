@@ -1,4 +1,4 @@
-package com.sree.leave.programs.algorithms.sorting;
+package com.sree.programs.algorithms.sorting;
 
 /**
  * https://www.geeksforgeeks.org/merge-sort/

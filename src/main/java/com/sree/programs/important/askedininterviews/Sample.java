@@ -1,4 +1,4 @@
-package com.sree.leave.programs.important;
+package com.sree.programs.important.askedininterviews;
 /*
  * https://www.geeksforgeeks.org/sort-elements-by-frequency/
  */

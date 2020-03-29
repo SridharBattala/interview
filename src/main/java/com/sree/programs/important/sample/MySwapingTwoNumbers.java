@@ -1,4 +1,4 @@
-package com.sree.leave.programs.sample;
+package com.sree.programs.important.sample;
 
 public class MySwapingTwoNumbers {
 	public static void main(String a[]) {

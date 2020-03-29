@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.linkedlist;
+package com.sree.programs.datastructures.linkedlist;
 
 public class MidElement {
 

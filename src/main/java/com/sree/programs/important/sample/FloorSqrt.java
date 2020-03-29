@@ -1,4 +1,4 @@
-package com.sree.leave.programs.important;
+package com.sree.programs.important.sample;
 
 //A Java program to find floor(sqrt(x) 
 public class FloorSqrt 

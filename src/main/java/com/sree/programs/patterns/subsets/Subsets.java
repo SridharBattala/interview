@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.subsets;
+package com.sree.programs.patterns.subsets;
 import java.util.*;
 
 class Subsets {

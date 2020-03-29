@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.graph;
+package com.sree.programs.datastructures.graph;
 /**
  * https://www.geeksforgeeks.org/graph-and-its-representations/
  * code from educative

@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.bfs;
+package com.sree.programs.patterns.bfs;
 
 import java.util.*;
 

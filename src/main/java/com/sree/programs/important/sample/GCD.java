@@ -1,4 +1,4 @@
-package com.sree.leave.programs.important;
+package com.sree.programs.important.sample;
 
 public class GCD {
 	public static void main(String[] args) {

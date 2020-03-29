@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.dpzerooneknapsack;
+package com.sree.programs.patterns.dpzerooneknapsack;
 
 class KnapsackBruteForce {
 

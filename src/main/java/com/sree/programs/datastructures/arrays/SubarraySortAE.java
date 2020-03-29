@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.arrays;
+package com.sree.programs.datastructures.arrays;
 /**
  * check for below vedio instead of AE
  * https://www.youtube.com/watch?v=Hg03KTli9co

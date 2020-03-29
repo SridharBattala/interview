@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.topologicalsort;
+package com.sree.programs.patterns.topologicalsort;
 import java.util.*;
 
 class TopologicalSort {

@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.twoheaps;
+package com.sree.programs.patterns.twoheaps;
 import java.util.*;
 
 class MedianOfAStream {

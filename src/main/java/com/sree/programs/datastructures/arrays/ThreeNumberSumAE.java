@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.arrays;
+package com.sree.programs.datastructures.arrays;
 /**
  * Write a function that takes in a non-empty array of distinct integers and an integer representing a target sum. 
  * The function should find all triplets in the array that sum up to the target sum and return a two-dimensional array of 

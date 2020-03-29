@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.reverselinkedlist;
+package com.sree.programs.patterns.reverselinkedlist;
 
 class ReverseSubList {
 	static class ListNode {

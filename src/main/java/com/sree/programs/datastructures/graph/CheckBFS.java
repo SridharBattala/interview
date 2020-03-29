@@ -1,4 +1,4 @@
-package com.sree.leave.programs.datastructures.graph;
+package com.sree.programs.datastructures.graph;
 
 class CheckBFS {
 	 static class Queue<V> {

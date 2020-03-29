@@ -1,4 +1,4 @@
-package com.sree.leave.programs.patterns.mergeintervals;
+package com.sree.programs.patterns.mergeintervals;
 import java.util.*;
 
 class Interval {
