@@ -1,18 +1,18 @@
 package com.sree.programs.patterns.mergeintervals;
 import java.util.*;
 
-class Interval {
-  int start;
-  int end;
 
-  public Interval(int start, int end) {
-    this.start = start;
-    this.end = end;
-  }
-};
 
 public class MergeIntervals {
+	private static class Interval {
+		  int start;
+		  int end;
 
+		  public Interval(int start, int end) {
+		    this.start = start;
+		    this.end = end;
+		  }
+		};
   public static List<Interval> merge(List<Interval> intervals) {
     if (intervals.size() < 2)
       return intervals;

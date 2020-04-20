@@ -2,7 +2,7 @@ package com.sree.programs.important.askedininterviews;
 /*
  * https://www.geeksforgeeks.org/sort-elements-by-frequency/
  */
-public class Sample {
+public class GoogleQuestion {
 	/*
 	 * Given a list of strings, return a list of strings ordered by first
 	 * occurrences (primary) and then recency (secondary).

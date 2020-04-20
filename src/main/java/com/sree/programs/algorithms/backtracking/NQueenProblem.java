@@ -1,83 +1,68 @@
 package com.sree.programs.algorithms.backtracking;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * https://www.youtube.com/watch?v=xouin83ebxE&list=PLrmLmBdmIlpslxZUHHWmfOzNn6cA7jvyh&index=2
  */
 
 
-import java.util.Arrays;
+class NQueenProblem{
+	  // this method determines if a queen can
+	  // be placed at proposedRow, proposedCol
+	  // with current solution i.e. this move 
+	  // is valid only if no queen in current 
+	  // solution should attacked square at
+	  // proposedRow and proposedCol
+	  static boolean isValidMove(int proposedRow, int proposedCol, List<Integer> solution) {  
 
-public class NQueenProblem
-{
-	// N x N chessboard
-	public static final int N = 4;
+	    // we need to check with all queens
+	    // in current solution
+	    for (int i = 0; i < proposedRow; ++i) {
+	      int oldRow = i;
+	      int oldCol = solution.get(i);
 
-	// Function to check if two queens threaten each other or not
-	private static boolean isSafe(char mat[][], int r, int c)
-	{
-		// return false if two queens share the same column
-		for (int i = 0; i < r; i++)
-			if (mat[i][c] == 'Q')
-				return false;
+	      int diagonalOffset = proposedRow - oldRow;
+	      if (oldCol == proposedCol ||
+	        oldCol == proposedCol - diagonalOffset ||
+	        oldCol == proposedCol + diagonalOffset) {
+	        return false;
+	    }
+	  }
 
-		// return false if two queens share the same \ diagonal
-		for (int i = r, j = c; i >= 0 && j >= 0; i--, j--)
-			if (mat[i][j] == 'Q')
-				return false;
+	  return true;
+	  }
 
-		// return false if two queens share the same / diagonal
-		for (int i = r, j = c; i >= 0 && j < N; i--, j++)
-			if (mat[i][j] == 'Q')
-				return false;
+	  static void solveNQueensRec(int n, List<Integer> solution, int row, List<List<Integer>> results) {
+	  
+	    if (row == n) {
+	      results.add(new ArrayList<Integer>(solution));    
+	      return;
+	    }
 
-		return true;
-	}
+	    for (int i = 0; i < n; ++i) {
+	      if (isValidMove(row, i, solution)) {
+	        solution.set(row, i);
+	        solveNQueensRec(n, solution, row + 1, results);
+	      }
+	    }
+	  }
 
-	private static void nQueen(char mat[][], int r)
-	{
-		// if N queens are placed successfully, print the solution
-		if (r == N)
-		{
-			for (int i = 0; i < N; i++)
-			{
-				for (int j = 0; j < N; j++)
-					System.out.print(mat[i][j] + " ");
-				System.out.println();
-			}
-			System.out.println();
+	  static int solveNQueens(int n, List<List<Integer>> results) {
+	    List<Integer> solution = new ArrayList<Integer>(n);
+	    for (int i = 0; i < n; ++i) {
+	      solution.add(-1);
+	    }
+	    solveNQueensRec(n, solution, 0, results);
+	    return results.size();
+	  }
 
-			return;
-		}
-
-		// place Queen at every square in current row r
-		// and recur for each valid movement
-		for (int i = 0; i < N; i++)
-		{
-			// if no two queens threaten each other
-			if (isSafe(mat, r, i))
-			{
-				// place queen on current square
-				mat[r][i] = 'Q';
-
-				// recur for next row
-				nQueen(mat, r + 1);
-
-				// backtrack and remove queen from current square
-				mat[r][i] = '-';
-			}
-		}
-	}
-
-	public static void main(String[] args)
-	{
-		// mat[][] keeps track of position of Queens in
-		// the current configuration
-		char[][] mat = new char[N][N];
-
-		// initialize mat[][] by '-'
-		for (int i = 0; i < N; i++) {
-			Arrays.fill(mat[i], '-');
-		}
-
-		nQueen(mat, 0);
-	}
-}
+	  public static void main(String[] args) {
+	    List<List<Integer>> results = new ArrayList<List<Integer>>();
+	    
+	    int n = 4;
+	    int res = solveNQueens(n, results);
+	    System.out.println("Total solutions count for " + n + " queens: " + res);
+	  }
+	}  
