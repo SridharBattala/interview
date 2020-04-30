@@ -6,59 +6,53 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class QueueUsing2Stack {
-
-	static Stack<Integer> st1 = new java.util.Stack<>();
-	static Stack<Integer> st2 = new java.util.Stack<>();
-	static Queue<Integer> qt = new LinkedList<>();
-
-	public static void enqueue(int data) {
-		if (st1.isEmpty()) {
-			st1.push(data);
-		} else {
-			while (st1.isEmpty()) {
-				st2.push(st1.pop());
-			}
-			st1.push(data);
-			if (!st2.isEmpty())
-				while (st2.empty()) {
-					st1.push(st2.pop());
-				}
+	  private static Stack<Integer> stack1=new Stack<>();
+	  private static Stack<Integer> stack2=new Stack<>();
+		public static void main (String[] args) {
+			
+	    
+	    enqueue(1);
+	    enqueue(2);
+	    enqueue(3);
+	    enqueue(4);
+	    dequeue();
+	    print();
 		}
-	}
-
-	public static int dequeue() {
-		return st1.pop();
-	}
-	public static int peek() {
-		return st1.peek();
-	}
-	
-	
-	static void insert (int data){
-		qt.add(data);
-	}
-	static void remove (){
-		qt.remove();
-	}
-	static int peekData(){
-		return qt.peek();
-	}
-
-	public static void main(String args[]) {
-		
-		Scanner sc = new Scanner(System.in);
-		int limit = sc.nextInt();
-		for ( int i=0;i<limit;i++){
-			int data = sc.nextInt();
-			if(1== data){
-				int temp = sc.nextInt();
-				insert(temp);
-			}else if(2 == data){
-				remove();
-			}else if (3 == data){
-				System.out.println(peekData());
-			}
-		}
-		
-	}
+	  public static void enqueue(int value){
+	    stack1.push(value);
+	  }
+	  
+	  public static int dequeue(){
+	    //if stack2 is empty
+	    if(stack2.isEmpty()){
+	      //add all ements to stack2
+	      while(!stack1.isEmpty()){
+	        stack2.push(stack1.pop());
+	      }
+	      
+	    }
+	    return stack2.pop();
+	  }
+	  public static int peek(){
+	    //if stack2 is empty
+	    if(stack2.isEmpty()){
+	      //add all ements to stack2
+	      while(!stack1.isEmpty()){
+	        stack2.push(stack1.pop());
+	      }
+	      
+	    }
+	    return stack2.peek();
+	  }
+	  public static boolean empty(){
+	    return stack1.isEmpty() && stack2.isEmpty() ;
+	  }
+	  public static void print(){
+		  while(!stack1.isEmpty()){
+		        stack2.push(stack1.pop());
+		      }
+		  for(int i=stack2.size()-1;i>=0;i--){
+		        System.out.print(stack2.get(i)+"-->");
+		      }
+		  }
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class PermutaionPalindrome {
 	public static void main(String[] args) {
 		System.out.println(canPermutePalindrome("civic"));
+		System.out.println(canPermutePalindrome("civci"));
 	}
 	public static boolean canPermutePalindrome(String s) {
 	     HashMap < Character, Integer > map = new HashMap < > ();
