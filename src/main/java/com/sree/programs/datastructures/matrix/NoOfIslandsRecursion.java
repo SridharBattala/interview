@@ -1,8 +1,24 @@
 package com.sree.programs.datastructures.matrix;
 
 public class NoOfIslandsRecursion {
+	public static void main(String[] args) {
 
-    public int numIslands(char[][] islandGrid) {
+        char [][] islandGrid = new char[][] {
+                {'1', '1', '1', '1', '0'},
+                {'1', '1', '0', '1', '0'},
+                {'1', '1', '0', '1', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'0', '0', '0', '0', '0'}};
+        System.out.println("No of Islands: " + numIslands(islandGrid));
+
+        islandGrid = new char[][] {
+                {'1', '1', '0', '0', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'0', '0', '1', '0', '0'},
+                {'0', '0', '0', '1', '1'}};
+        System.out.println("No of Islands: " + numIslands(islandGrid));
+    }
+    public static int numIslands(char[][] islandGrid) {
 
         int h = islandGrid.length;
         if (h == 0)
@@ -21,36 +37,25 @@ public class NoOfIslandsRecursion {
         return result;
     }
 
-    public void DFS(char[][] islandGrid, int row, int col) {
+    public static void  DFS(char[][] islandGrid, int row, int col) {
 
         int H = islandGrid.length;
         int L = islandGrid[0].length;
-
-        if (row < 0 || col < 0 || row >= H || col >= L || islandGrid[row][col] != '1')
-            return;
-        islandGrid[row][col] = '0'; //marking it visited
-        DFS(islandGrid, row+ 1, col); // go right
-        DFS(islandGrid, row- 1, col); //go left
-        DFS(islandGrid, row, col + 1); //go down
-        DFS(islandGrid, row, col - 1); // go up
+        //base case
+        if (row < 0 || col < 0 || row >= H || col >= L || islandGrid[row][col] != '1') {
+        	 return;
+        }
+        //recursive case
+        else {
+        	 islandGrid[row][col] = '0'; //marking it visited
+             DFS(islandGrid, row+ 1, col); // go right
+             DFS(islandGrid, row- 1, col); //go left
+             DFS(islandGrid, row, col + 1); //go down
+             DFS(islandGrid, row, col - 1); // go up
+        }
+           
+       
     }
 
-    public static void main(String[] args) {
-
-        char [][] islandGrid = new char[][] {
-                {'1', '1', '1', '1', '0'},
-                {'1', '1', '0', '1', '0'},
-                {'1', '1', '0', '1', '0'},
-                {'1', '1', '0', '0', '0'},
-                {'0', '0', '0', '0', '0'}};
-        NoOfIslandsRecursion noOfIslands = new NoOfIslandsRecursion();
-        System.out.println("No of Islands: " + noOfIslands.numIslands(islandGrid));
-
-        islandGrid = new char[][] {
-                {'1', '1', '0', '0', '0'},
-                {'1', '1', '0', '0', '0'},
-                {'0', '0', '1', '0', '0'},
-                {'0', '0', '0', '1', '1'}};
-        System.out.println("No of Islands: " + noOfIslands.numIslands(islandGrid));
-    }
+    
 }
