@@ -1,28 +1,28 @@
 package com.sree.programs.datastructures.tree;
 
 
-class Node {
+class TreeNode {
     @Override
     public String toString() {
         return "Node [data=" + data + "]";
     }
 
     public int data;
-    public Node left;
-    public Node right;
+    public TreeNode left;
+    public TreeNode right;
 
-    public Node(final int num) {
+    public TreeNode(final int num) {
         this.data = num;
         this.left = null;
         this.right = null;
     }
 
-    public Node() {
+    public TreeNode() {
         this.left = null;
         this.right = null;
     }
 
-    public static Node createNode(final int number) {
-        return new Node(number);
+    public static TreeNode createNode(final int number) {
+        return new TreeNode(number);
     }
 }

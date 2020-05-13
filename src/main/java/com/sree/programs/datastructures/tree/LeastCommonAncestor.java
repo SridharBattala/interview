@@ -1,44 +1,44 @@
 package com.sree.programs.datastructures.tree;
 
 public class LeastCommonAncestor {
-	//driver method
+	// driver method
 	public static void main(String args[]) {
-		Node node1 = new Node(1);
-		Node node2 = new Node(2);
-		Node node3 = new Node(3);
-		Node node4 = new Node(4);
-		Node node5 = new Node(5);
-		Node node6 = new Node(6);
-		Node node7 = new Node(7);
-		node1.left=node2;
-		node1.right=	node3;
-		node2.left=node4;
-		node2.right=node5;
-		node4.left=node6;
-		node4.right=node7;
-		Node lca=findLCA(node1,6,5);//recursive method
-		System.out.println("lca="+lca.data);
+		TreeNode TreeNode1 = new TreeNode(1);
+		TreeNode TreeNode2 = new TreeNode(2);
+		TreeNode TreeNode3 = new TreeNode(3);
+		TreeNode TreeNode4 = new TreeNode(4);
+		TreeNode TreeNode5 = new TreeNode(5);
+		TreeNode TreeNode6 = new TreeNode(6);
+		TreeNode TreeNode7 = new TreeNode(7);
+		TreeNode1.left = TreeNode2;
+		TreeNode1.right = TreeNode3;
+		TreeNode2.left = TreeNode4;
+		TreeNode2.right = TreeNode5;
+		TreeNode4.left = TreeNode6;
+		TreeNode4.right = TreeNode7;
+		TreeNode lca = findLCA(TreeNode1, 6, 5);// recursive method
+		System.out.println("lca=" + lca.data);
 	}
 
-	private static Node findLCA(Node currentNode,int data1,int data2) {
-		//base case 1
-		if(currentNode==null) {
+	private static TreeNode findLCA(TreeNode currentTreeNode, int data1, int data2) {
+		// base case 1
+		if (currentTreeNode == null) {
 			return null;
-		}else if(currentNode.data==data1 || currentNode.data==data2) {
-			return currentNode;
+		} else if (currentTreeNode.data == data1 || currentTreeNode.data == data2) {
+			return currentTreeNode;
 		}
-		//recursive case
+		// recursive case
 		else {
-			Node left=findLCA(currentNode.left, data1, data2);
-			Node right=findLCA(currentNode.right, data1, data2);
-			if(left!=null && right!=null) {
-				return currentNode;
-			}else if(left!=null) {
+			TreeNode left = findLCA(currentTreeNode.left, data1, data2);
+			TreeNode right = findLCA(currentTreeNode.right, data1, data2);
+			if (left != null && right != null) {
+				return currentTreeNode;
+			} else if (left != null) {
 				return left;
-			}else {
+			} else {
 				return right;
 			}
 		}
 	}
-	
+
 }
