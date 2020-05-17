@@ -1,109 +1,59 @@
 package com.sree.programs.datastructures.heap;
+
 /*
- * https://www.geeksforgeeks.org/heap-sort/
+ * https://algorithms.tutorialhorizon.com/heap-sort-java-implementation/
+ * https://www.educative.io/courses/data-structures-coding-interviews-java/JPX181R2Vzv
  */
+import java.util.*;
+
 public class HeapSort {
-	/*
-	 *  Target Practice 09 - Heapsort
-	 */
 
-	'use strict';
-
-	/*
-	 *  Heapsort
-	 *
-	 *  Prompt:    Given an unsorted array of integers, return the array
-	 *             sorted using heapsort.
-	 *
-	 *  Input:     input {Array}
-	 *  Output:    {Array}
-	 *
-	 *  Example:   [3,9,1,4,7] --> [1,3,4,7,9]
-	 */
-
-
-	// Worse Time Complexity: O(Nlog(N))
-	// Worse Auxiliary Space Complexity: O(1)
-	// Average Time Complexity: O(Nlog(N))
-	// Average Auxiliary Space Complexity: O(1)
-
-	function heapsort(arr) {
-	  let heapLength = 1;
-	  
-	  function getParent(child) {
-	    return Math.floor((child - 1) / 2);
-	  }
-	  
-	  function getChild(parent) {
-	    let leftChild = parent*2 + 1;
-	    let rightChild = leftChild + 1;
-	    
-	    if(leftChild >= heapLength - 1 || arr[leftChild] >= arr[rightChild]) {
-	      return leftChild;
-	    }
-	    return rightChild;
-	  }
-	  
-	  function bubbleDown() {
-	    let parent = 0;
-	    let child = getChild(parent);
-	    
-	    while(child < heapLength && arr[parent] < arr[child]) {
-	      [arr[parent], arr[child]] = [arr[child], arr[parent]];
-	      parent = child;
-	      child = getChild(parent);
-	    }
-	  }
-	  
-	  function bubbleUp() {
-	    let child = heapLength - 1;
-	    let parent = getParent(child);
-	    
-	    while (child > 0 && arr[parent] < arr[child]) {
-	      [arr[child], arr[parent]] = [arr[parent], arr[child]];
-	      child = parent;
-	      parent = getParent(child); 
-	    } 
-	  }
-	  
-	  function remove() {
-	    [arr[0], arr[heapLength - 1]] = [arr[heapLength - 1], arr[0]];
-	    heapLength--;
-	    bubbleDown();
-	  }
-	  
-	  function insert() {
-	    heapLength++;
-	    bubbleUp();
-	  }
-	  
-	  while (heapLength < arr.length) {
-	    insert();
-	  }
-	  
-	  console.log("HEAPIFIED ARRAY: ");
-	  console.log(arr);
-	  
-	  while(heapLength > 1) {
-	    remove();
-	  }
-
-	  console.log("SORTED ARRAY: ");
-	  return arr;
-	  
+	public static void main(String args[]) {
+		int[] arr = { 9, 10, 5, 3, 1, 2, 6 };
+		System.out.println("Original array is: " + Arrays.toString(arr));
+		HeapSort.sort(arr);
+		System.out.println("Sorted array is (Heap Sort): " + Arrays.toString(arr));
 	}
 
-	let array = [4,15,16,50,8,23,42,108];
+	private static void sort(int[] arr) {
+		// build heap
+		for (int index = (arr.length - 1) / 2; index >= 0; index--) {
+			heapify(arr, arr.length, index);
+		}
+		System.out.println("Heap array is (Heap Sort): " + Arrays.toString(arr));
+		for (int index = arr.length - 1; index >= 0; index--) {
+			// swap first with last element
+			swap(arr, 0, index);
+			heapify(arr, index, 0);
+		}
 
-	console.log("UNSORTED ARRAY: ");
-	console.log(array);
-	console.log(heapsort(array));
+	}
 
+	private static void heapify(int[] arr, int arrSize, int parentIndex) {
+		int largest = parentIndex;
 
+		while (largest < arrSize / 2) {// check parent nodes only
+			int leftIndex = (2 * parentIndex) + 1;
+			int rightIndex = (2 * parentIndex) + 2;
+			if (leftIndex < arrSize && arr[leftIndex] > arr[largest]) {
+				largest = leftIndex;
+			}
+			if (rightIndex < arrSize && arr[rightIndex] > arr[largest]) {
+				largest = rightIndex;
+			}
+			if (largest != parentIndex) {
+				swap(arr, largest, parentIndex);
+				parentIndex = largest;
+			} else {
+				break;
+			}
+		}
 
+	}
 
-
-
-
-
+	private static void swap(int[] arr, int parentIndex, int elementIndex) {
+		int x = arr[parentIndex];
+		arr[parentIndex] = arr[elementIndex];
+		arr[elementIndex] = x;
+	}
 }
