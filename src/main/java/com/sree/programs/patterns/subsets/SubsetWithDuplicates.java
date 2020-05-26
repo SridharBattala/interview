@@ -1,36 +1,35 @@
 package com.sree.programs.patterns.subsets;
+
 import java.util.*;
 
 class SubsetWithDuplicates {
 
-  public static List<List<Integer>> findSubsets(int[] nums) {
-    // sort the numbers to handle duplicates
-    Arrays.sort(nums);
-    List<List<Integer>> subsets = new ArrayList<>();
-    subsets.add(new ArrayList<>());
-    int startIndex = 0, endIndex = 0;
-    for (int i = 0; i < nums.length; i++) {
-      startIndex = 0;
-      // if current and the previous elements are same, create new subsets only from the subsets 
-      // added in the previous step
-      if (i > 0 && nums[i] == nums[i - 1])
-        startIndex = endIndex + 1;
-      endIndex = subsets.size() - 1;
-      for (int j = startIndex; j <= endIndex; j++) {
-        // create a new subset from the existing subset and add the current element to it
-        List<Integer> set = new ArrayList<>(subsets.get(j));
-        set.add(nums[i]);
-        subsets.add(set);
-      }
-    }
-    return subsets;
-  }
+	public static List<List<Integer>> findSubsets(int[] arr) {
+		List<List<Integer>> subsets = new LinkedList<>();
+		Arrays.sort(arr);
+		subsets.add(new LinkedList<>());
+		int startIndex = 0;
+		int endIndex = subsets.size();
+		for (int i = 0; i < arr.length; i++) {
+			int currentSize = subsets.size();
 
-  public static void main(String[] args) {
-    List<List<Integer>> result = SubsetWithDuplicates.findSubsets(new int[] { 1, 3, 3 });
-    System.out.println("Here is the list of subsets: " + result);
+			for (int j = startIndex; j < currentSize; j++) {
+				List<Integer> list = new LinkedList<>();
+				list.addAll(subsets.get(j));
+				list.add(arr[i]);
+				subsets.add(list);
+			}
+			if (i < arr.length - 1 && arr[i] == arr[i + 1]) {
+				startIndex = endIndex;
+			}
+			endIndex = subsets.size();
+		}
+		return subsets;
+	}
 
-    result = SubsetWithDuplicates.findSubsets(new int[] { 1, 5, 3, 3 });
-    System.out.println("Here is the list of subsets: " + result);
-  }
+	public static void main(String[] args) {
+
+		List<List<Integer>> result = SubsetWithDuplicates.findSubsets(new int[] { 1, 3, 3 });
+		System.out.println("Here is the list of subsets: " + result);
+	}
 }

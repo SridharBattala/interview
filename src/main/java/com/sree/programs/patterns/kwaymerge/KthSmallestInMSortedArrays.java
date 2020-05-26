@@ -1,51 +1,58 @@
 package com.sree.programs.patterns.kwaymerge;
+
 import java.util.*;
 
-class Node {
-  int elementIndex;
-  int arrayIndex;
-
-  Node(int elementIndex, int arrayIndex) {
-    this.elementIndex = elementIndex;
-    this.arrayIndex = arrayIndex;
-  }
-}
-
 class KthSmallestInMSortedArrays {
+	public static class Node {
+		int elementIndex;
+		int arrIndex;
 
-  public static int findKthSmallest(List<Integer[]> lists, int k) {
-    PriorityQueue<Node> minHeap = new PriorityQueue<Node>(
-        (n1, n2) -> lists.get(n1.arrayIndex)[n1.elementIndex] - lists.get(n2.arrayIndex)[n2.elementIndex]);
+		public Node(int arrIndex, int elementIndex) {
+			super();
+			this.elementIndex = elementIndex;
+			this.arrIndex = arrIndex;
+		}
 
-    // put the 1st element of each array in the min heap
-    for (int i = 0; i < lists.size(); i++)
-      if (lists.get(i) != null)
-        minHeap.add(new Node(0, i));
+	}
 
-    // take the smallest (top) element form the min heap, if the running count is equal to k return the number
-    // if the array of the top element has more elements, add the next element to the heap
-    int numberCount = 0, result = 0;
-    while (!minHeap.isEmpty()) {
-      Node node = minHeap.poll();
-      result = lists.get(node.arrayIndex)[node.elementIndex];
-      if (++numberCount == k)
-        break;
-      node.elementIndex++;
-      if (lists.get(node.arrayIndex).length > node.elementIndex)
-        minHeap.add(node);
-    }
-    return result;
-  }
+	public static int findKthSmallest(List<Integer[]> lists, int k) {
+		// base case
+		if (lists.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		// create min heap
+		PriorityQueue<Node> minHeap = new PriorityQueue<>(
+				(a, b) -> lists.get(a.arrIndex)[a.elementIndex] - lists.get(b.arrIndex)[b.elementIndex]);
+		// add first elements of all arrays
+		for (int arrayIndex = 0; arrayIndex < lists.size(); arrayIndex++) {
+			minHeap.add(new Node(arrayIndex, 0));
+		}
+		int counter = 0, output = 0;
+		while (!minHeap.isEmpty()) {
+			Node currentNode = minHeap.poll();
+			counter++;
+			if (counter == k) {
+				output = lists.get(currentNode.arrIndex)[currentNode.elementIndex];
+			} else {
+				if (lists.get(currentNode.arrIndex).length - 1 > currentNode.elementIndex) {
+					Node nextNode = new Node(currentNode.arrIndex, currentNode.elementIndex + 1);
+					minHeap.add(nextNode);
+				}
 
-  public static void main(String[] args) {
-    Integer[] l1 = new Integer[] { 2, 6, 8 };
-    Integer[] l2 = new Integer[] { 3, 6, 7 };
-    Integer[] l3 = new Integer[] { 1, 3, 4 };
-    List<Integer[]> lists = new ArrayList<Integer[]>();
-    lists.add(l1);
-    lists.add(l2);
-    lists.add(l3);
-    int result = KthSmallestInMSortedArrays.findKthSmallest(lists, 5);
-    System.out.print("Kth smallest number is: " + result);
-  }
+			}
+		}
+		return output;
+	}
+
+	public static void main(String[] args) {
+		Integer[] l1 = new Integer[] { 2, 6, 8 };
+		Integer[] l2 = new Integer[] { 3, 6, 7 };
+		Integer[] l3 = new Integer[] { 1, 3, 4 };
+		List<Integer[]> lists = new ArrayList<Integer[]>();
+		lists.add(l1);
+		lists.add(l2);
+		lists.add(l3);
+		int result = KthSmallestInMSortedArrays.findKthSmallest(lists, 5);
+		System.out.print("Kth smallest number is: " + result);
+	}
 }

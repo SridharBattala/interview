@@ -1,63 +1,48 @@
 package com.sree.programs.patterns.mergeintervals;
+
 import java.util.*;
 
-
-
 public class MergeIntervals {
-	private static class Interval {
-		  int start;
-		  int end;
 
-		  public Interval(int start, int end) {
-		    this.start = start;
-		    this.end = end;
-		  }
-		};
-  public static List<Interval> merge(List<Interval> intervals) {
-    if (intervals.size() < 2)
-      return intervals;
+	public static List<Interval> merge(List<Interval> intervals) {
+		// base case
+		if (intervals.size() < 2) {
+			return intervals;
+		}
+		// start solution
+		List<Interval> output = new LinkedList<>();
+		// sort the intevals
+		Collections.sort(intervals, (a, b) -> Integer.compare(a.start, b.start));
+		// loop the intervals
+		int start = intervals.get(0).start;
+		int end = intervals.get(0).end;
+		for (int i = 1; i < intervals.size(); i++) {
+			Interval current = intervals.get(i);
+			if (end > current.start) {
+				end = Math.max(current.end, end);
+			} else {
+				output.add(new Interval(start, end));
+				start = current.start;
+				end = current.end;
+			}
+		}
+		// add the last inteval
+		output.add(new Interval(start, end));
+		return output;
+	}
 
-    // sort the intervals by start time
-    Collections.sort(intervals, (a, b) -> Integer.compare(a.start, b.start));
+	public static void main(String[] args) {
+		List<Interval> input = new ArrayList<Interval>();
+		input.add(new Interval(1, 3));
+		input.add(new Interval(2, 7));
+		input.add(new Interval(5, 8));
+		input.add(new Interval(10, 12));
+		input.add(new Interval(13, 17));
+		input.add(new Interval(15, 18));
+		System.out.print("Merged intervals: ");
+		for (Interval interval : MergeIntervals.merge(input))
+			System.out.print("[" + interval.start + "," + interval.end + "] ");
+		System.out.println();
 
-    List<Interval> mergedIntervals = new LinkedList<Interval>();
-    Iterator<Interval> intervalItr = intervals.iterator();
-    Interval interval = intervalItr.next();
-    int start = interval.start;
-    int end = interval.end;
-
-    while (intervalItr.hasNext()) {
-      interval = intervalItr.next();
-      if (interval.start <= end) { // overlapping intervals, adjust the 'end'
-        end = Math.max(interval.end, end);
-      } else { // non-overlapping interval, add the previous interval and reset
-        mergedIntervals.add(new Interval(start, end));
-        start = interval.start;
-        end = interval.end;
-      }
-    }
-    // add the last interval
-    mergedIntervals.add(new Interval(start, end));
-
-    return mergedIntervals;
-  }
-
-  public static void main(String[] args) {
-    List<Interval> input = new ArrayList<Interval>();
-    input.add(new Interval(1, 3));
-    input.add(new Interval(2, 7));
-    input.add(new Interval(5, 8));
-    input.add(new Interval(10, 12));
-    input.add(new Interval(13, 17));
-    input.add(new Interval(15, 18));
-    System.out.print("Merged intervals: ");
-    for (Interval interval : MergeIntervals.merge(input))
-      System.out.print("[" + interval.start + "," + interval.end + "] ");
-    System.out.println();
-
-   
-  }
+	}
 }
-
-
-
