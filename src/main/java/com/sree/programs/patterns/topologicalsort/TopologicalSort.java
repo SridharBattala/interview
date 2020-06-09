@@ -1,66 +1,57 @@
 package com.sree.programs.patterns.topologicalsort;
+
 import java.util.*;
 
 class TopologicalSort {
-  public static List<Integer> sort(int vertices, int[][] edges) {
-    List<Integer> sortedOrder = new ArrayList<>();
-    if (vertices <= 0)
-      return sortedOrder;
+	static Map<Integer, List<Integer>> map = new HashMap<>();
+	static List<Integer> visited = new ArrayList<>();
+	static Map<Integer, Integer> inDegree = new HashMap<>();
 
-    // a. Initialize the graph
-    HashMap<Integer, Integer> inDegree = new HashMap<>(); // count of incoming edges for every vertex
-    HashMap<Integer, List<Integer>> graph = new HashMap<>(); // adjacency list graph
-    for (int i = 0; i < vertices; i++) {
-      inDegree.put(i, 0);
-      graph.put(i, new ArrayList<Integer>());
-    }
+	public static List<Integer> sort(int vertices, int[][] edges) {
+		// initialize graph
+		for (int i = 0; i < vertices; i++) {
+			map.put(i, new ArrayList<>());
+			inDegree.put(i, 0);
+		}
+		// build graph
+		for (int i = 0; i < edges.length; i++) {
+			map.get(edges[i][0]).add(edges[i][1]);
+			inDegree.put(edges[i][1], inDegree.get(edges[i][1]) + 1);
+		}
+		// start bfs
+		Queue<Integer> queue = new LinkedList<>();
+		// add all sources
+		for (Map.Entry<Integer, Integer> entry : inDegree.entrySet()) {
+			if (entry.getValue() == 0) {
+				queue.add(entry.getKey());
+			}
+		}
+		List<Integer> topologicalSort = new ArrayList<>();
+		while (!queue.isEmpty()) {
+			int currentVertex = queue.poll();
+			topologicalSort.add(currentVertex);
+			visited.add(currentVertex);
+			// get neighbours
+			for (Integer neighbor : map.get(currentVertex)) {
+				if (!visited.contains(neighbor)) {
+					inDegree.put(neighbor, inDegree.get(neighbor) - 1);
+					if (inDegree.get(neighbor) == 0) {
+						queue.add(neighbor);
+					}
 
-    // b. Build the graph
-    for (int i = 0; i < edges.length; i++) {
-      int parent = edges[i][0], child = edges[i][1];
-      graph.get(parent).add(child); // put the child into it's parent's list
-      inDegree.put(child, inDegree.get(child) + 1); // increment child's inDegree
-    }
+				}
+			}
+		}
+		// having cycle
+		if (topologicalSort.size() != vertices) {
+			return new ArrayList<>();
+		}
+		return topologicalSort;
+	}
 
-    // c. Find all sources i.e., all vertices with 0 in-degrees
-    Queue<Integer> sources = new LinkedList<>();
-    for (Map.Entry<Integer, Integer> entry : inDegree.entrySet()) {
-      if (entry.getValue() == 0)
-        sources.add(entry.getKey());
-    }
-
-    // d. For each source, add it to the sortedOrder and subtract one from all of its children's in-degrees
-    // if a child's in-degree becomes zero, add it to the sources queue
-    while (!sources.isEmpty()) {
-      int vertex = sources.poll();
-      sortedOrder.add(vertex);
-      List<Integer> children = graph.get(vertex); // get the node's children to decrement their in-degrees
-      for (int child : children) {
-        inDegree.put(child, inDegree.get(child) - 1);
-        if (inDegree.get(child) == 0)
-          sources.add(child);
-      }
-    }
-
-    if (sortedOrder.size() != vertices) // topological sort is not possible as the graph has a cycle
-      return new ArrayList<>();
-
-    return sortedOrder;
-  }
-
-  public static void main(String[] args) {
-		/*
-		 * List<Integer> result = TopologicalSort.sort(4, new int[][] { new int[] { 3, 2
-		 * }, new int[] { 3, 0 }, new int[] { 2, 0 }, new int[] { 2, 1 } });
-		 * System.out.println(result);
-		 * 
-		 * result = TopologicalSort.sort(5, new int[][] { new int[] { 4, 2 }, new int[]
-		 * { 4, 3 }, new int[] { 2, 0 }, new int[] { 2, 1 }, new int[] { 3, 1 } });
-		 * System.out.println(result);
-		 */
-
-	  List<Integer> result = TopologicalSort.sort(7, new int[][] { new int[] { 6, 4 }, new int[] { 6, 2 }, new int[] { 5, 3 },
-        new int[] { 5, 4 }, new int[] { 3, 0 }, new int[] { 3, 1 }, new int[] { 3, 2 }, new int[] { 4, 1 } });
-    System.out.println(result);
-  }
+	public static void main(String[] args) {
+		int[][] edges = { { 3, 2 }, { 3, 0 }, { 2, 0 }, { 2, 1 } };
+		List<Integer> result = TopologicalSort.sort(4, edges);
+		System.out.println("output=" + result);
+	}
 }

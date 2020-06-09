@@ -2,62 +2,75 @@ package com.sree.programs.patterns.reverselinkedlist;
 
 class ReverseSubList {
 	static class ListNode {
-		  int value = 0;
-		  ListNode next;
+		int value = 0;
+		ListNode next;
 
-		  ListNode(int value) {
-		    this.value = value;
-		  }
+		ListNode(int value) {
+			this.value = value;
 		}
-  public static ListNode reverse(ListNode head, int p, int q) {
-    if (p == q)
-      return head;
+	}
 
-    // after skipping 'p-1' nodes, current will point to 'p'th node
-    ListNode current = head, previous = null;
-    for (int i = 0; current != null && i < p - 1; ++i) {
-      previous = current;
-      current = current.next;
-    }
+	public static ListNode reverse(ListNode head, int start, int end) {
+		if (start == end) {
+			return head;
+		} else {
+			// four pointers
+			ListNode startNodePrev = null;
+			ListNode startNode = null;
+			ListNode endNode = null;
+			ListNode endNodeNext = null;
 
-    // we are interested in three parts of the LinkedList, part before index 'p', part between 'p' and 
-    // 'q', and the part after index 'q'
-    ListNode lastNodeOfFirstPart = previous; // points to the node at index 'p-1'
-    // after reversing the LinkedList 'current' will become the last node of the sub-list
-    ListNode lastNodeOfSubList = current;
-    ListNode next = null; // will be used to temporarily store the next node
-    // reverse nodes between 'p' and 'q'
-    for (int i = 0; current != null && i < q - p + 1; i++) {
-      next = current.next;
-      current.next = previous;
-      previous = current;
-      current = next;
-    }
+			for (int i = 1; head != null; i++) {
+				if (i == start - 1) {
+					startNodePrev = head;
+					startNode = head.next;
+					break;
+				}
+				head = head.next;
+			}
+			// three pointers
+			ListNode prev = startNode;
+			ListNode current = startNode.next;
+			ListNode next = null;
+			int currentCount = start;
+			while (current != null) {
 
-    // connect with the first part
-    if (lastNodeOfFirstPart != null)
-      lastNodeOfFirstPart.next = previous; // 'previous' is now the first node of the sub-list
-    else // this means p == 1 i.e., we are changing the first node (head) of the LinkedList
-      head = previous;
+				next = current.next;
+				current.next = prev;
+				prev = current;
+				current = next;
+				currentCount++;
+				if (currentCount == end) {
+					endNode = prev;
+					endNodeNext = current;
+					break;
+				}
+			}
+			// make it start node proper
+			if (startNodePrev != null && endNode != null) {
+				startNodePrev.next = endNode;
+			}
+			// make it end node proper
+			if (startNode != null && endNodeNext != null) {
+				startNode.next = endNodeNext;
+			}
+			return head;
+		}
 
-    // connect with the last part
-    lastNodeOfSubList.next = current;
+	}
 
-    return head;
-  }
+	public static void main(String[] args) {
+		ListNode head = new ListNode(1);
+		head.next = new ListNode(2);
+		head.next.next = new ListNode(3);
+		head.next.next.next = new ListNode(4);
+		head.next.next.next.next = new ListNode(5);
 
-  public static void main(String[] args) {
-    ListNode head = new ListNode(1);
-    head.next = new ListNode(2);
-    head.next.next = new ListNode(3);
-    head.next.next.next = new ListNode(4);
-    head.next.next.next.next = new ListNode(5);
-
-    ListNode result = ReverseSubList.reverse(head, 2, 4);
-    System.out.print("Nodes of the reversed LinkedList are: ");
-    while (result != null) {
-      System.out.print(result.value + " ");
-      result = result.next;
-    }
-  }
+		ListNode result = ReverseSubList.reverse(head, 2, 4);
+		System.out.print("Nodes of the reversed LinkedList are: ");
+		while (result != null) {
+			System.out.print(result.value + " ");
+			result = result.next;
+		}
+	}
 }
