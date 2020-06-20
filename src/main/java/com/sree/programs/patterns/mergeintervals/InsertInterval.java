@@ -5,48 +5,35 @@ import java.util.*;
 class InsertInterval {
 
 	public static List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-		if (intervals == null || intervals.isEmpty())
-			return Arrays.asList(newInterval);
-
-		List<Interval> mergedIntervals = new ArrayList<>();
-
-		int i = 0;
-		// skip (and add to output) all intervals that come before the 'newInterval'
-		while (i < intervals.size() && intervals.get(i).end < newInterval.start) {
-			mergedIntervals.add(intervals.get(i));
-			i = i + 1;
+		List<Interval> output = new LinkedList<>();
+		int start = intervals.get(0).start;
+		int end = intervals.get(0).end;
+		for (int index = 1; index < intervals.size() + 1; index++) {
+			boolean isStartBetweenNewInterval = (start >= newInterval.start && start <= newInterval.end);
+			boolean isNewStartBetweenInterval = (newInterval.start >= start && newInterval.start <= end);
+			if (isStartBetweenNewInterval || isNewStartBetweenInterval) {
+				start = Math.min(start, newInterval.start);
+				end = Math.max(end, newInterval.end);
+				if (index > intervals.size() - 1) {
+					break;
+				}
+				newInterval = intervals.get(index);
+			} else {
+				output.add(new Interval(start, end));
+				if (index > intervals.size() - 1) {
+					break;
+				}
+				start = intervals.get(index).start;
+				end = intervals.get(index).end;
+			}
 		}
-
-		// merge all intervals that overlap with 'newInterval'
-		while (i < intervals.size() && intervals.get(i).start <= newInterval.end) {
-			newInterval.start = Math.min(intervals.get(i).start, newInterval.start);
-			newInterval.end = Math.max(intervals.get(i).end, newInterval.end);
-			i++;
-		}
-
-		// insert the newInterval
-		mergedIntervals.add(newInterval);
-
-		// add all the remaining intervals to the output
-		while (i < intervals.size())
-			mergedIntervals.add(intervals.get(i++));
-
-		return mergedIntervals;
+		output.add(new Interval(start, end));
+		return output;
 	}
 
 	public static void main(String[] args) {
-		List<Interval> input = new ArrayList<Interval>();
-		input.add(new Interval(1, 3));
-		input.add(new Interval(5, 7));
-		input.add(new Interval(9, 11));
-		input.add(new Interval(13, 15));
-		input.add(new Interval(17, 19));
-		System.out.print("Intervals after inserting the new interval: ");
-		for (Interval interval : InsertInterval.insert(input, new Interval(6, 14)))
-			System.out.print("[" + interval.start + "," + interval.end + "] ");
-		System.out.println();
 
-		input = new ArrayList<Interval>();
+		List<Interval> input = new ArrayList<Interval>();
 		input.add(new Interval(1, 3));
 		input.add(new Interval(5, 7));
 		input.add(new Interval(8, 12));
@@ -55,12 +42,5 @@ class InsertInterval {
 			System.out.print("[" + interval.start + "," + interval.end + "] ");
 		System.out.println();
 
-		input = new ArrayList<Interval>();
-		input.add(new Interval(2, 3));
-		input.add(new Interval(5, 7));
-		System.out.print("Intervals after inserting the new interval: ");
-		for (Interval interval : InsertInterval.insert(input, new Interval(1, 4)))
-			System.out.print("[" + interval.start + "," + interval.end + "] ");
-		System.out.println();
 	}
 }
