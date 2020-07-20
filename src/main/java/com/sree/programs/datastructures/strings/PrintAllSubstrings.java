@@ -17,25 +17,20 @@ public class PrintAllSubstrings {
 
 	// driver method
 	private static void printAllSubstrings(String input) {
-		for (int i = 0; i < input.length(); i++) {
-			printAllSubstringsRecursive(input, "", i);
-		}
+
+		printAllSubstringsRecursive(input, 0, input.length() - 1);
+
 	}
 
-	private static boolean printAllSubstringsRecursive(String input, String currentString, int index) {
-		if (index > input.length() - 1) {
-			System.out.println(currentString);
-			return true;
-
+	private static void printAllSubstringsRecursive(String input, int startIndex, int endIndex) {
+		if (startIndex > endIndex) {
+			return;
 		} else {
-			if (!currentString.isEmpty()) {
-				System.out.println(currentString);
+			for (int index = startIndex; index <= endIndex; index++) {
+				System.out.println(input.substring(startIndex, index + 1));
+				printAllSubstringsRecursive(input, startIndex + 1, endIndex);
 			}
 
-			printAllSubstringsRecursive(input, currentString + input.charAt(index), index + 1);
-
-			// printAllSubstringsRecursive(input, currentString, index + 1);
-			return true;
 		}
 	}
 }

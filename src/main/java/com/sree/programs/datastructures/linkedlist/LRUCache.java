@@ -1,82 +1,87 @@
 package com.sree.programs.datastructures.linkedlist;
 
+//Linked list operations
+//LinkedListNode(int data) 
+//LinkedListNode(int key, int data)
+//LinkedListNode(int data, LinkedListNode next)
+//LinkedListNode(int data, LinkedListNode next, LinkedListNode arbitrary_pointer)
 /**
- * https://www.geeksforgeeks.org/lru-cache-implementation/
- * https://medium.com/@krishankantsinghal/my-first-blog-on-medium-583159139237
- * @author sridharbattala
- *
+ * https://www.educative.io/courses/coderust-hacking-the-coding-interview/jRLoR
+ * https://www.algoexpert.io/questions/LRU%20Cache
  */
-/* We can use Java inbuilt Deque as a double 
-ended queue to store the cache keys, with 
-the descending time of reference from front 
-to back and a set container to check presence 
-of a key. But remove a key from the Deque using 
-remove(), it takes O(N) time. This can be 
-optimized by storing a reference (iterator) to 
-each key in a hash map. */
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Iterator;
+import java.util.*;
 
-public class LRUCache {
-	// store keys of cache
-	static Deque<Integer> dq;
-	// store references of key in cache
-	static HashSet<Integer> map;
-	// maximum capacity of cache
-	static int csize;
+class LRUCache {
+	class LinkedListNode {
+		int key;
+		String value;
 
-	LRUCache(int n) {
-		dq = new LinkedList<>();
-		map = new HashSet<>();
-		csize = n;
+		LinkedListNode(int key, String value) {
+			this.key = key;
+			this.value = value;
+		}
 	}
 
-	/* Refers key x with in the LRU cache */
-	public void refer(int x) {
-		if (!map.contains(x)) {
-			if (dq.size() == csize) {
-				int last = dq.removeLast();
-				map.remove(last);
-			}
+	int capacity;
+
+//LinkedListNode holds key and value pairs
+	Map<Integer, LinkedListNode> cacheMap;
+	LinkedList<LinkedListNode> cacheList;
+
+	public LRUCache(int capacity) {
+		this.capacity = capacity;
+		cacheMap = new HashMap<Integer, LinkedListNode>(capacity);
+		cacheList = new LinkedList<LinkedListNode>();
+	}
+
+	String get(int key) {
+		if (!cacheMap.containsKey(key)) {
+			return null;
 		} else {
-			/*
-			 * The found page may not be always the last element, even if it's an
-			 * intermediate element that needs to be removed and added to the start of the
-			 * Queue
-			 */
-			
-			dq.remove(x);
+			// remove from current position and add last
+			LinkedListNode node = cacheMap.get(key);
+			cacheList.remove(node);
+			cacheList.addLast(node);
+			return node.value;
 		}
-		dq.addFirst(x);
-		map.add(x);
 	}
 
-	// display contents of cache
-	public void display() {
-		Iterator<Integer> itr = dq.iterator();
-		while (itr.hasNext()) {
-			System.out.print(itr.next() + " ");
+	void set(int key, String value) {
+
+		// remove head if size>=capacity
+		if (cacheList.size() >= capacity) {
+			LinkedListNode headNode = cacheList.remove();
+			cacheMap.remove(headNode.key);
 		}
+
+		// add last
+		LinkedListNode node = new LinkedListNode(key, value);
+		cacheList.addLast(node);
+		cacheMap.put(key, node);
+
+	}
+
+	void print() {
+
+		for (LinkedListNode node : cacheList) {
+			System.out.print("(" + node.key + "," + node.value + ")");
+		}
+		System.out.println("");
 	}
 
 	public static void main(String[] args) {
-		LRUCache ca = new LRUCache(3);
-		//1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5
-		ca.refer(1);
-		ca.refer(2);
-		ca.refer(3);
-		ca.refer(4);
-		ca.refer(1);
-		ca.refer(2);
-		ca.refer(5);
-		ca.refer(1);
-		ca.refer(2);
-		ca.refer(3);
-		ca.refer(4);
-		ca.refer(5);
-		ca.display();
+		LRUCache cache = new LRUCache(3);
+
+		cache.set(1, "sridhar");
+		cache.set(2, "balu");
+		cache.set(3, "ashok");
+		cache.print();
+
+		cache.get(1);
+		cache.set(4, "krish");
+		cache.print();
+
+		cache.set(5, "abhi");
+		cache.print();
 	}
 }
-// This code is contributed by Gaurav Tiwari 
