@@ -1,40 +1,37 @@
 package com.sree.programs.algorithms.math;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class KthPermutation {
+	static List<Integer> list = new LinkedList<>();
+
 	public static void main(String args[]) {
-
-		String result = findPermutation(4, 8);
-		System.out.println("result=" + result);
-	}
-
-	private static String findPermutation(int inputEndNumber, int j) {
-		List<Integer> inputList = new ArrayList<>();
-		for (int i = 1; i <= inputEndNumber; i++) {
-			inputList.add(i);
+		StringBuilder stringBuilder = new StringBuilder();
+		int n = 4;
+		for (int i = 1; i <= n; i++) {
+			list.add(i);
 		}
-		StringBuilder result = new StringBuilder();
-		findKthPermutation(inputList, j, result);
-		return result.toString();
+		findPermutation(n, 8, stringBuilder);
+
 	}
 
-	private static void findKthPermutation(List<Integer> inputList, int position, StringBuilder result) {
-
-		if (inputList.isEmpty()) {
+	// define block size, for n=4 block size=(n-1)!=6
+	// check which segment ur output is there, (k-1)/block size=1, means second
+	// segment
+	// we need to decrease k, k=k-(selected segment*block size) = 8-(1*6)=2
+	private static void findPermutation(int n, int k, StringBuilder stringBuilder) {
+		if (list.isEmpty()) {
+			System.out.println(stringBuilder.toString());
 			return;
-		} else {
-
-			int totalPermutations = factorial(inputList.size() - 1);
-			int selectedIndex = (position - 1) / totalPermutations;
-			result = result.append(inputList.get(selectedIndex) + "");
-			inputList.remove(selectedIndex);
-			position = position - (totalPermutations * selectedIndex);
-			findKthPermutation(inputList, position, result);
-
 		}
-
+		int blockSize = factorial(n - 1);
+		int segment = (k - 1) / blockSize;
+		stringBuilder.append(list.get(segment));
+		list.remove(segment);
+		k = k - (segment * blockSize);
+		findPermutation(n - 1, k, stringBuilder);
 	}
 
 	static int factorial(int n) {
