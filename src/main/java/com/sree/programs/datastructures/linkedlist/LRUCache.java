@@ -47,18 +47,25 @@ class LRUCache {
 	}
 
 	void set(int key, String value) {
+		// if contains key
+		if (cacheMap.containsKey(key)) {
+			LinkedListNode node = cacheMap.get(key);
+			node.value = value;
+			cacheList.remove(node);
+			cacheList.addLast(node);
 
-		// remove head if size>=capacity
-		if (cacheList.size() >= capacity) {
-			LinkedListNode headNode = cacheList.remove();
-			cacheMap.remove(headNode.key);
+		} else {
+			// remove head if size>=capacity
+			if (cacheList.size() >= capacity) {
+				LinkedListNode headNode = cacheList.remove();
+				cacheMap.remove(headNode.key);
+			}
+
+			// add last
+			LinkedListNode node = new LinkedListNode(key, value);
+			cacheList.addLast(node);
+			cacheMap.put(key, node);
 		}
-
-		// add last
-		LinkedListNode node = new LinkedListNode(key, value);
-		cacheList.addLast(node);
-		cacheMap.put(key, node);
-
 	}
 
 	void print() {
