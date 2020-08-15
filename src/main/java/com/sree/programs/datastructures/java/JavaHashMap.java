@@ -11,10 +11,16 @@ public class JavaHashMap {
 		Map<Integer, String> map = new HashMap<>();
 		map.put(1, "sridhar");
 		map.put(2, "pravali");
+		/**
+		 * looping
+		 */
 		for (Map.Entry<Integer, String> entry : map.entrySet()) {
 			entry.getKey();
 			entry.getValue();
 		}
+		/**
+		 * methods
+		 */
 		map.clear();// remove all the mappings
 		map.size();
 		map.isEmpty();
