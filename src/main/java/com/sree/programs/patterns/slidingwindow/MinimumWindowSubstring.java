@@ -41,6 +41,6 @@ class MinimumWindowSubstring {
 	public static void main(String[] args) {
 		System.out.println(MinimumWindowSubstring.findSubstring("aabdec", "abc"));
 		System.out.println(MinimumWindowSubstring.findSubstring("aaaabdec", "aae"));
-		System.out.println(MinimumWindowSubstring.findSubstring("adcad", "abc"));
+		System.out.println(MinimumWindowSubstring.findSubstring("abdabca", "abc"));
 	}
 }

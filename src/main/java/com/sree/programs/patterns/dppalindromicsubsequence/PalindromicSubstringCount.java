@@ -3,41 +3,39 @@ package com.sree.programs.patterns.dppalindromicsubsequence;
 import java.util.*;
 
 public class PalindromicSubstringCount {
-	static String input = "madam";// "abdbca";
+	static String input = "cddpd";// "abdbca";
+	static Set<String> set = new HashSet<>();
 
 	public static void main(String[] args) {
 
-		System.out.println("LCSLength TopDown=" + findLPSLengthTopDown(0, input.length() - 1));
-
+		System.out.println("LCSLength TopDown=" + getCountRecursive(0, input.length() - 1));
+		System.out.println(set);
 	}
 
-	private static int findLPSLengthTopDown(int startIndex, int endIndex) {
+	// pqr
+	private static int getCountRecursive(int startIndex, int endIndex) {
 
 		// base case 1
 		if (startIndex > endIndex) {
 			return 0;
 		}
-		// base case 2
-		else if (startIndex == endIndex) {
-			return 1;
-		}
+
 		// recursive case
 		else {
 			int count1 = 0;
-			int count2 = 0;
-			int count3 = 0;
+
 			if (input.charAt(startIndex) == input.charAt(endIndex)) {
 				int remainingLength = endIndex - startIndex - 1;
-				if (endIndex - startIndex == 1
-						|| remainingLength == findLPSLengthTopDown(startIndex + 1, endIndex - 1)) {
-					return count1 + 1;
+				if (remainingLength == getCountRecursive(startIndex + 1, endIndex - 1)) {
+					set.add(input.substring(startIndex, endIndex + 1));
+					count1++;
 				}
 
 			}
-			findLPSLengthTopDown(startIndex, endIndex - 1);
-			findLPSLengthTopDown(startIndex + 1, endIndex);
+			getCountRecursive(startIndex, endIndex - 1);
+			getCountRecursive(startIndex + 1, endIndex);
+			return count1;
 
-			return 0;
 		}
 
 	}
