@@ -5,13 +5,30 @@ public class JavaString {
 		/**
 		 * string methods
 		 */
-		String string = "sridhar";
+		String string = "sridhar.battala";
 		string.length();
 		string.charAt(1);
-		string.indexOf('r');
+		string.contains("s");
+		string.indexOf('r');// first occurance
+		string.lastIndexOf('r');// last occurance
+		System.out.println("split=" + string.split("\\.")[1]);
 		// beginIndex , inclusive.
 		// endIndex , exclusive.
 		String subString = string.substring(1, 3);
 		System.out.println("subString=" + subString);
+		/**
+		 * string to int
+		 */
+		String numStr = "123";
+		int num = Integer.valueOf(numStr).intValue();
+		/**
+		 * String to array
+		 */
+		char[] charArr = string.toCharArray();
+		/**
+		 * array to string
+		 */
+		String string1 = new String(charArr);
+
 	}
 }

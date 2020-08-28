@@ -6,13 +6,6 @@ import java.util.Collections;
 public class JavaArray {
 	public static void main(String[] args) {
 		/**
-		 * array sort
-		 */
-		Integer[] arr = { 2, 1, 3, 5, 4 };
-		Arrays.sort(arr);// ascending
-		Arrays.sort(arr, Collections.reverseOrder());// descending
-
-		/**
 		 * array methods
 		 */
 		int[] array1 = new int[5];
@@ -23,8 +16,16 @@ public class JavaArray {
 		System.out.println("subArray=" + subArray);
 
 		/**
+		 * array sort
+		 */
+		Integer[] arr = { 2, 1, 3, 5, 4 };
+		Arrays.sort(arr);// ascending
+		Arrays.sort(arr, Collections.reverseOrder());// descending
+
+		/**
 		 * array to list
 		 */
 		Arrays.asList(array3);
+
 	}
 }
