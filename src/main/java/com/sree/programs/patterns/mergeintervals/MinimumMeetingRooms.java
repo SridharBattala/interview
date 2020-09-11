@@ -14,21 +14,22 @@ public class MinimumMeetingRooms {
 	}
 
 	private static int findMinimumMeetingRooms(List<Meeting> meetings) {
-		// base case
-		if (meetings == null || meetings.size() == 0) {
+		if (meetings == null || meetings.size() == 0)
 			return 0;
-		}
-		// start solution
-		// sort the meeting with start
+
+		// sort the meetings by start time
 		Collections.sort(meetings, (a, b) -> Integer.compare(a.start, b.start));
-		// create min heap
-		PriorityQueue<Meeting> minHeap = new PriorityQueue<>(meetings.size(), (a, b) -> Integer.compare(a.end, b.end));
+
 		int minRooms = 0;
+		PriorityQueue<Meeting> minHeap = new PriorityQueue<>(meetings.size(), (a, b) -> Integer.compare(a.end, b.end));
 		for (Meeting meeting : meetings) {
-			while (!minHeap.isEmpty() && meeting.start >= minHeap.peek().end) {
+			System.out.println(" meeting=" + meeting.toString() + ", minHeap=" + minHeap.toString());
+			// remove all meetings that have ended
+			while (!minHeap.isEmpty() && meeting.start >= minHeap.peek().end)
 				minHeap.poll();
-			}
+			// add the current meeting into the minHeap
 			minHeap.offer(meeting);
+			// all active meeting are in the minHeap, so we need rooms for all of them.
 			minRooms = Math.max(minRooms, minHeap.size());
 		}
 		return minRooms;

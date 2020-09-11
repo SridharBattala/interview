@@ -4,13 +4,13 @@ import java.util.*;
 
 class TopologicalSort {
 	static Map<Integer, List<Integer>> map = new HashMap<>();
-	static List<Integer> visited = new ArrayList<>();
+	static List<Integer> sortedOrder = new ArrayList<>();
 	static Map<Integer, Integer> inDegree = new HashMap<>();
 
 	public static List<Integer> sort(int vertices, int[][] edges) {
 		// initialize graph
 		for (int i = 0; i < vertices; i++) {
-			map.put(i, new ArrayList<>());
+			map.put(i, new LinkedList<>());
 			inDegree.put(i, 0);
 		}
 		// build graph
@@ -18,35 +18,35 @@ class TopologicalSort {
 			map.get(edges[i][0]).add(edges[i][1]);
 			inDegree.put(edges[i][1], inDegree.get(edges[i][1]) + 1);
 		}
-		// start bfs
+
+		// add vertex with zero indegree to queue
 		Queue<Integer> queue = new LinkedList<>();
-		// add all sources
 		for (Map.Entry<Integer, Integer> entry : inDegree.entrySet()) {
 			if (entry.getValue() == 0) {
-				queue.add(entry.getKey());
+				queue.offer(entry.getKey());
 			}
 		}
-		List<Integer> topologicalSort = new ArrayList<>();
+
+		// bfs traversal
 		while (!queue.isEmpty()) {
 			int currentVertex = queue.poll();
-			topologicalSort.add(currentVertex);
-			visited.add(currentVertex);
-			// get neighbours
-			for (Integer neighbor : map.get(currentVertex)) {
-				if (!visited.contains(neighbor)) {
-					inDegree.put(neighbor, inDegree.get(neighbor) - 1);
-					if (inDegree.get(neighbor) == 0) {
-						queue.add(neighbor);
-					}
+			sortedOrder.add(currentVertex);
+			// get neighbors
+			List<Integer> neighbors = map.get(currentVertex);
+			for (Integer neighbor : neighbors) {
+				inDegree.put(neighbor, inDegree.get(neighbor) - 1);
+				if (inDegree.get(neighbor) == 0) {
+					queue.offer(neighbor);
 
 				}
 			}
+
 		}
-		// having cycle
-		if (topologicalSort.size() != vertices) {
-			return new ArrayList<>();
+
+		if (sortedOrder.size() != vertices) {
+			sortedOrder.clear();
 		}
-		return topologicalSort;
+		return sortedOrder;
 	}
 
 	public static void main(String[] args) {
