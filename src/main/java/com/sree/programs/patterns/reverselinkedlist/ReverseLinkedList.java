@@ -16,11 +16,12 @@ class ReverseLinkedList {
 		ListNode current = head;
 		ListNode next = null;
 		while (current != null) {
+			System.out.println("data=" + current.value);
 			next = current.next;
 			current.next = prev;
 			prev = current;
-			current = next;
 
+			current = next;
 		}
 		return prev;
 	}

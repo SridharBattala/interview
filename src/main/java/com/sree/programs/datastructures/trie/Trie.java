@@ -1,6 +1,6 @@
 package com.sree.programs.datastructures.trie;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * https://www.geeksforgeeks.org/trie-insert-and-search/ educative
@@ -11,159 +11,75 @@ import java.util.Arrays;
 class Trie {
 
 	public static void main(String args[]) {
-		// Input keys (use only 'a' through 'z' and lower case)
-		String keys[] = { "THE", "A", "THERE", "ANSWER" };
-		String output[] = { "Not present in trie", "Present in trie" };
-		Trie t = new Trie();
-
-		System.out.println("Keys: " + Arrays.toString(keys));
-
-		// Construct trie
+		String[] input = { "ABC", "ABD", "ABCD" };
 		TrieNode root = new TrieNode();
-		int i;
-		for (i = 0; i < keys.length; i++) {
-			t.insert(root, keys[i]);
+		for (int i = 0; i < input.length; i++) {
+			insert(root, input[i]);
 		}
-
-		// Search for different keys and delete if found
-		if (t.search(root, "THE") == true) {
-			System.out.println("the --- " + output[1]);
-			t.delete(root, "THE");
-			System.out.println("Deleted key \"the\"");
-		} else
-			System.out.println("the --- " + output[0]);
+		List<String> allWords = new LinkedList<>();
+		getAllTheWords(root, "", allWords);
+		System.out.println("print all words" + allWords.toString());
+		System.out.println("search word=" + search(root, "ABDC"));
+		System.out.println("prefix words=" + getWordsContainsPrefix(root, "ABC"));
 
 	}
 
-	// Function to get the index of a character 't'
-	public int getIndex(char t) {
-		return t - 'A';
-	}
-
-	// Function to insert a key in the Trie
-	public void insert(TrieNode root, String key) {
-		// Null keys are not allowed
-		if (key == null) {
-			return;
-		}
-		// key = key.toLowerCase(); // Keys are stored in lowercase
-		TrieNode currentNode = root;
-		int index = 0; // to store character index
-
-		// Iterate the Trie with given character index,
-		// If it is null, then simply create a TrieNode and go down a level
-		for (int level = 0; level < key.length(); level++) {
-			index = getIndex(key.charAt(level));
-
-			if (currentNode.children[index] == null) {
-				currentNode.children[index] = new TrieNode();
+	public static void insert(TrieNode root, String word) {
+		for (int i = 0; i < word.length(); i++) {
+			char currentChar = word.charAt(i);
+			if (!root.containsChar(currentChar)) {
+				root.put(currentChar, new TrieNode());
 			}
-			currentNode = currentNode.children[index];
+			root = root.get(currentChar);
 		}
-		// Mark the end character as leaf node
-		currentNode.markAsLeaf();
+		root.isEndWord = true;
+
 	}
 
-	// Function to search given key in Trie
-	public boolean search(TrieNode root, String key) {
+	private static void getAllTheWords(TrieNode root, String currentString, List<String> output) {
 
-		if (key == null)
-			return false; // Null Key
+		for (int i = 0; i < 26; i++) {
+			if (root.children[i] != null) {
+				currentString = currentString + root.getCharByIndex(i);
+				// check for end
+				if (root.children[i].isEndWord) {
+					output.add(currentString);
+				}
+				getAllTheWords(root.children[i], currentString, output);
+				currentString = currentString.substring(0, currentString.length() - 1);
+			}
+		}
+	}
 
-		// key = key.toLowerCase();
-		TrieNode currentNode = root;
-		int index = 0;
+	private static List<String> getWordsContainsPrefix(TrieNode root, String prefix) {
+		List<String> words = new LinkedList<>();
+		for (int i = 0; i < prefix.length(); i++) {
+			char currentChar = prefix.charAt(i);
+			if (!root.containsChar(currentChar)) {
+				return words;
+			}
+			root = root.get(currentChar);
+		}
+		if (root.isEndWord) {
+			words.add(prefix);
+		}
+		getAllTheWords(root, prefix, words);
+		return words;
+	}
 
-		// Iterate the Trie with given character index,
-		// If it is null at any point then we stop and return false
-		// We will return true only if we reach leafNode and have traversed the
-		// Trie based on the length of the key
+	private static boolean search(TrieNode root, String word) {
 
-		for (int level = 0; level < key.length(); level++) {
-			// find the index of the current letter in the root
-			index = getIndex(key.charAt(level));
-			if (currentNode.children[index] == null) {
+		for (int i = 0; i < word.length(); i++) {
+			char currentChar = word.charAt(i);
+			if (!root.containsChar(currentChar)) {
 				return false;
 			}
-
-			currentNode = currentNode.children[index];
+			root = root.get(currentChar);
 		}
-		if (currentNode.isEndWord) {
+		if (root.isEndWord) {
 			return true;
-		}
-
-		return false;
-	}
-
-	// Helper Function to return true if currentNode does not have any children
-	private boolean hasNoChildren(TrieNode currentNode) {
-		for (int i = 0; i < currentNode.children.length; i++) {
-			if ((currentNode.children[i]) != null)
-				return false;
-		}
-		return true;
-	}
-
-	// Recursive function to delete given key
-	private boolean deleteHelper(String key, TrieNode currentNode, int length, int level) {
-		boolean deletedSelf = false;
-
-		if (currentNode == null) {
-			System.out.println("Key does not exist");
-			return deletedSelf;
-		}
-
-		// Base Case: If we have reached at the node which points to the alphabet at the
-		// end of the key.
-		if (level == length) {
-			// If there are no nodes ahead of this node in this path
-			// Then we can delete this node
-			if (hasNoChildren(currentNode)) {
-				currentNode = null;
-				deletedSelf = true;
-			}
-			// If there are nodes ahead of currentNode in this path
-			// Then we cannot delete currentNode. We simply unmark this as leaf
-			else {
-				currentNode.unMarkAsLeaf();
-				deletedSelf = false;
-			}
 		} else {
-			TrieNode childNode = currentNode.children[getIndex(key.charAt(level))];
-			boolean childDeleted = deleteHelper(key, childNode, length, level + 1);
-			if (childDeleted) {
-				// Making children pointer also null: since child is deleted
-				currentNode.children[getIndex(key.charAt(level))] = null;
-				// If currentNode is leaf node that means currntNode is part of another key
-				// and hence we can not delete this node and it's parent path nodes
-				if (currentNode.isEndWord) {
-					deletedSelf = false;
-				}
-				// If childNode is deleted but if currentNode has more children then currentNode
-				// must be part of another key.
-				// So, we cannot delete currenNode
-				else if (!hasNoChildren(currentNode)) {
-					deletedSelf = false;
-				}
-				// Else we can delete currentNode
-				else {
-					currentNode = null;
-					deletedSelf = true;
-				}
-			} else {
-				deletedSelf = false;
-			}
+			return false;
 		}
-		return deletedSelf;
 	}
-
-	// Function to delete given key from Trie
-	public void delete(TrieNode root, String key) {
-		if ((root == null) || (key == null)) {
-			System.out.println("Null key or Empty trie error");
-			return;
-		}
-		deleteHelper(key, root, key.length(), 0);
-	}
-
 }

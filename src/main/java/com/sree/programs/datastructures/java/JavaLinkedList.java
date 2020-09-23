@@ -55,5 +55,6 @@ public class JavaLinkedList {
 		empList.add(new Employee(1, "sridhar"));
 		empList.add(new Employee(2, "pravali"));
 		Collections.sort(empList, (a, b) -> (a.id - b.id));
+
 	}
 }

@@ -1,38 +1,45 @@
 package com.sree.programs.patterns.dppalindromicsubsequence;
 
-import java.io.*;
-
-//Input: {2, 5, 1, 3, 6, 2, 4}
-//Output: 15
-//Explanation: The thief should steal from houses 5 + 6 + 4
 class PalindromicPartitioning {
-	public static void main(String[] args) {
-		String input = "pp";
-		int output = minCuts(input);
-		System.out.println("output=" + output);
+
+	public static int findMPPCuts(String st) {
+		return findMPPCutsRecursive(st, 0, st.length() - 1);
 	}
 
-//diver method
-	public static int minCuts(String input) {
-		return minCutsRecursive(input, 0, input.length() - 1);
-	}
+	private static int findMPPCutsRecursive(String st, int startIndex, int endIndex) {
 
-//recursive method
-	public static int minCutsRecursive(String input, int startIndex, int endIndex) {
-		if (startIndex > endIndex) {
+		// we don't need to cut the string if it is a palindrome
+		if (startIndex >= endIndex || isPalindrome(st, startIndex, endIndex))
 			return 0;
-		} else {
-			int count1 = endIndex - startIndex + 1;
-			if (input.charAt(startIndex) == input.charAt(endIndex)) {
-				int remainingCount = minCutsRecursive(input, startIndex + 1, endIndex - 1);
-				if (remainingCount == 0) {
-					count1 = 0;
-				}
+
+		// at max, we need to cut the string into its 'length-1' pieces
+		int minimumCuts = endIndex - startIndex;
+		for (int i = startIndex; i <= endIndex; i++) {
+			if (isPalindrome(st, startIndex, i)) {
+				System.out.println("string 1=" + st.substring(startIndex, i + 1));
+				System.out.println("string 2=" + st.substring(i + 1, endIndex + 1));
+
+				// we can cut here as we have a palindrome from 'startIndex' to 'i'
+				minimumCuts = Math.min(minimumCuts, 1 + findMPPCutsRecursive(st, i + 1, endIndex));
 			}
-			int count2 = 1 + minCutsRecursive(input, startIndex + 1, endIndex);
-			int count3 = 1 + minCutsRecursive(input, startIndex, endIndex - 1);
-			// System.out.println("count1="+count1+",count2="+count2+", count3="+count3);
-			return Math.min(Math.min(count1, count2), count3);
 		}
+
+		return minimumCuts;
+	}
+
+	private static boolean isPalindrome(String st, int x, int y) {
+		while (x < y) {
+			if (st.charAt(x++) != st.charAt(y--))
+				return false;
+		}
+		return true;
+	}
+
+	public static void main(String[] args) {
+
+		System.out.println(findMPPCuts("abdbca"));
+		// System.out.println(findMPPCuts("cdpdd"));
+		// System.out.println(findMPPCuts("pqr"));
+		// System.out.println(findMPPCuts("pp"));
 	}
 }

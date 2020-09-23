@@ -16,36 +16,26 @@ public class LongestIncreasingSubsequence {
 		int[] arr = { 4, 2, 3, 6, 10, 1, 12 };
 		System.out.println("length=" + findLISLength(arr));
 		cache.clear();
-		arr = new int[] { -4, 10, 3, 7, 15 };
-		System.out.println("length=" + findLISLength(arr));
+		// arr = new int[] { -4, 10, 3, 7, 15 };
+		// System.out.println("length=" + findLISLength(arr));
 	}
 
 	// driver method
 	private static int findLISLength(int[] arr) {
-		return findLISLengthRecursive(arr, 0, -1);
+		return findLISLengthRecursive(arr, 0);
 	}
 
 	// recursive method
-	private static int findLISLengthRecursive(int[] arr, int currentIndex, int previousIndex) {
-		// base case
-		if (arr.length == currentIndex) {
+	private static int findLISLengthRecursive(int[] arr, int currentIndex) {
+		if (currentIndex == arr.length) {
 			return 0;
-		}
-		// recursive case
-		else {
-			if (cache.containsKey(currentIndex + "|" + previousIndex)) {
-				return cache.get(currentIndex + "|" + previousIndex);
-			} else {
-				int count1 = 0;
-				if (previousIndex == -1 || arr[currentIndex] > arr[previousIndex]) {
-					count1 = 1 + findLISLengthRecursive(arr, currentIndex + 1, currentIndex);
-				}
-				int count2 = findLISLengthRecursive(arr, currentIndex + 1, previousIndex);
-				int count = Math.max(count1, count2);
-				cache.put(currentIndex + "|" + previousIndex, count);
-				return count;
+		} else {
+			int count1 = 0;
+			if (currentIndex == 0 || arr[currentIndex] > arr[currentIndex - 1]) {
+				count1 = 1 + findLISLengthRecursive(arr, currentIndex + 1);
 			}
+			int count2 = findLISLengthRecursive(arr, currentIndex + 1);
+			return Math.max(count1, count2);
 		}
-
 	}
 }

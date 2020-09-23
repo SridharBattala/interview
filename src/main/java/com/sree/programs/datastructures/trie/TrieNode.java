@@ -9,13 +9,22 @@ class TrieNode {
 		this.children = new TrieNode[26]; // Total # of English Alphabets = 26
 	}
 
-	// Function to mark the currentNode as Leaf
-	public void markAsLeaf() {
-		this.isEndWord = true;
+	public void put(char ch, TrieNode node) {
+		children[ch - 'A'] = node;
 	}
 
-	// Function to unMark the currentNode as Leaf
-	public void unMarkAsLeaf() {
-		this.isEndWord = false;
+	public TrieNode get(char ch) {
+		return children[ch - 'A'];
+	}
+
+	public char getCharByIndex(int index) {
+		return (char) (index + 'A');
+	}
+
+	public boolean containsChar(char ch) {
+		if (children[ch - 'A'] != null) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -12,6 +12,8 @@ public class JavaCharacter {
 		System.out.println("isAlphabet=" + Character.isAlphabetic('i'));
 		System.out.println("isLowerCase=" + Character.isLowerCase('i'));
 		System.out.println("isUpperCase=" + Character.isUpperCase('S'));
+		System.out.println("toUpperCase=" + Character.toUpperCase('s'));
+		System.out.println("toLowerCase=" + Character.toLowerCase('S'));
 
 	}
 }
