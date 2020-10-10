@@ -2,6 +2,7 @@ package com.sree.programs.datastructures.java;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class JavaArray {
 	public static void main(String[] args) {
@@ -13,14 +14,30 @@ public class JavaArray {
 		int[] array3 = { 1, 2, 3, 4, 5 };
 		int length = array3.length;
 		int[] subArray = Arrays.copyOfRange(array3, 1, 3);
-		System.out.println("subArray=" + subArray);
+		System.out.println("subArray=" + Arrays.toString(subArray));
 
 		/**
-		 * array sort
+		 * int array sort
 		 */
-		Integer[] arr = { 2, 1, 3, 5, 4 };
+		int[] arr = { 4, 10, 2, 15, 9 };
 		Arrays.sort(arr);// ascending
-		Arrays.sort(arr, Collections.reverseOrder());// descending
+		System.out.println("int array Sort=" + Arrays.toString(arr));
+		/**
+		 * int two dimentioanl array sort
+		 */
+		int[][] matrix = { { 2, 5 }, { 1, 4 } };
+		Arrays.sort(matrix, (a, b) -> a[0] - b[0]);// ascending
+		for (int[] matrixArr : matrix) {
+			System.out.print("  matrix sort=" + Arrays.toString(matrixArr));
+		}
+		System.out.println();
+
+		/**
+		 * string array sort
+		 */
+		String[] strArr = { "4", "10", "2", "15", "9" };
+		Arrays.sort(strArr, (a, b) -> (b + a).compareTo(a + b));// descending
+		System.out.println("String array Sort=" + Arrays.toString(strArr));
 
 		/**
 		 * array to list

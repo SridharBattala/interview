@@ -29,6 +29,13 @@ public class JavaString {
 		 * array to string
 		 */
 		String string1 = new String(charArr);
+		/**
+		 * string builder
+		 */
+		StringBuilder builder = new StringBuilder();
+		builder.append("sridhar");
+		builder.append(" battala");
+		System.out.println("String builder=" + builder.toString());
 
 	}
 }

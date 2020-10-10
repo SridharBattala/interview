@@ -40,8 +40,14 @@ public class JavaLinkedList {
 		 * list sort
 		 */
 		List<Integer> list = Arrays.asList(2, 1, 3, 5, 4);
-		Collections.sort(list);
+		Collections.sort(list, (a, b) -> a - b);
+		Collections.sort(list, (a, b) -> b - a);
 		Collections.sort(list, Collections.reverseOrder());
+		/**
+		 * 
+		 * list custom object sort
+		 *
+		 */
 		class Employee {
 			int id;
 			String name;
