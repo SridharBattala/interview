@@ -11,7 +11,7 @@ public class Meeting {
 
 	@Override
 	public String toString() {
-		return "{start=" + start + ", end=" + end + "}";
+		return "[" + start + "," + end + "]";
 	}
 
 }

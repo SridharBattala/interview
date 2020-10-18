@@ -19,14 +19,17 @@ public class MinimumMeetingRooms {
 
 		// sort the meetings by start time
 		Collections.sort(meetings, (a, b) -> Integer.compare(a.start, b.start));
-
+		System.out.println("After sort=" + meetings.toString());
 		int minRooms = 0;
 		PriorityQueue<Meeting> minHeap = new PriorityQueue<>(meetings.size(), (a, b) -> Integer.compare(a.end, b.end));
+		// loop meetings
 		for (Meeting meeting : meetings) {
 			System.out.println(" meeting=" + meeting.toString() + ", minHeap=" + minHeap.toString());
 			// remove all meetings that have ended
-			while (!minHeap.isEmpty() && meeting.start >= minHeap.peek().end)
+			while (!minHeap.isEmpty() && meeting.start >= minHeap.peek().end) {
 				minHeap.poll();
+			}
+
 			// add the current meeting into the minHeap
 			minHeap.offer(meeting);
 			// all active meeting are in the minHeap, so we need rooms for all of them.

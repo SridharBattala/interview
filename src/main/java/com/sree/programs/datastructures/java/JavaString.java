@@ -1,5 +1,7 @@
 package com.sree.programs.datastructures.java;
 
+import java.util.Arrays;
+
 public class JavaString {
 	public static void main(String[] args) {
 		/**
@@ -36,6 +38,24 @@ public class JavaString {
 		builder.append("sridhar");
 		builder.append(" battala");
 		System.out.println("String builder=" + builder.toString());
+		/**
+		 * string sort
+		 */
+		String stringSort = "bac";
+		Character tempArray[] = new Character[stringSort.length()];
+		for (int i = 0; i < stringSort.length(); i++) {
+			tempArray[i] = stringSort.charAt(i);
+		}
+
+		Arrays.sort(tempArray, (a, b) -> Character.compare(b, a));
+		System.out.println("String sort=" + Arrays.toString(tempArray));
+
+		/**
+		 * string array sort
+		 */
+		String[] stringArrSort = { "b", "a", "c" };
+		Arrays.sort(stringArrSort, (a, b) -> (a.compareTo(b)));
+		System.out.println("string Arr sort=" + Arrays.toString(stringArrSort));
 
 	}
 }
