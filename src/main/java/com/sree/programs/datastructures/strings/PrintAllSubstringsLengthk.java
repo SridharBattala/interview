@@ -1,6 +1,6 @@
 package com.sree.programs.datastructures.strings;
 
-public class PrintAllSubstrings {
+public class PrintAllSubstringsLengthk {
 	public static void main(String[] args) {
 		// printAllSubstringsIteration("abcd");
 		printAllSubstrings("abcd");

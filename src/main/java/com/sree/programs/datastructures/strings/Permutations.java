@@ -4,7 +4,8 @@ import java.util.*;
 
 public class Permutations {
 	public static void main(String[] args) {
-		getPermutations("abc");
+		List<String> output = getPermutations("abc");
+		System.out.println("output=" + output.toString());
 	}
 
 	// driver method
@@ -12,20 +13,22 @@ public class Permutations {
 	// increase start by 1 every loop
 	// in each after every loop make one character as constant
 	// print all the elements when start =end
-	private static void getPermutations(String string) {
-
-		getPermutationsRecursive(string.toCharArray(), 0, string.length() - 1);
+	private static List<String> getPermutations(String string) {
+		List<String> callStack = new LinkedList<>();
+		getPermutationsRecursive(string.toCharArray(), 0, callStack);
+		return callStack;
 	}
 
-	private static void getPermutationsRecursive(char[] input, int start, int end) {
-		if (start == end) {
-			System.out.println(input);
+	private static void getPermutationsRecursive(char[] input, int currentIndex, List<String> callStack) {
+		if (currentIndex == input.length - 1) {
+			callStack.add(new String(input));
+			return;
 		} else {
-			for (int i = start; i <= end; i++) {
-				swap(input, start, i);
-				getPermutationsRecursive(input, start + 1, end);
+			for (int i = currentIndex; i <= input.length - 1; i++) {
+				swap(input, currentIndex, i);
+				getPermutationsRecursive(input, currentIndex + 1, callStack);
 				// back tracking
-				swap(input, start, i);
+				swap(input, currentIndex, i);
 			}
 
 		}

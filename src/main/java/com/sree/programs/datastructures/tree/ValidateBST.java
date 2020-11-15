@@ -9,35 +9,34 @@ public class ValidateBST {
 		TreeNode TreeNode5 = new TreeNode(5);
 		TreeNode TreeNode6 = new TreeNode(6);
 		TreeNode TreeNode7 = new TreeNode(7);
-		TreeNode1.left = TreeNode2;
-		TreeNode1.right = TreeNode3;
-		TreeNode2.left = TreeNode4;
-		TreeNode2.right = TreeNode5;
-		TreeNode4.left = TreeNode6;
-		TreeNode4.right = TreeNode7;
+		TreeNode2.left = TreeNode1;
+		TreeNode2.right = TreeNode3;
+		// TreeNode2.left = TreeNode4;
+		// TreeNode4.left = TreeNode3;
+		// TreeNode4.right = TreeNode6;
 
-		System.out.println(" isValidBST=" + isValidBST(TreeNode1));
+		System.out.println(" isValidBST=" + isValidBST(TreeNode2));
 	}
 
 	public static boolean isValidBST(TreeNode root) {
-		return helper(root, null, null);
+		return helper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
-	public static boolean helper(TreeNode node, Integer lower, Integer upper) {
-		if (node == null)
+	public static boolean helper(TreeNode node, int lower, int upper) {
+		if (node == null) {
 			return true;
+		} else {
+			boolean leftSubTree = false;
+			boolean rightSubTree = false;
+			if (node.data > lower && node.data < upper) {
+				leftSubTree = helper(node.left, lower, node.data);
+				rightSubTree = helper(node.right, node.data, upper);
+				return leftSubTree && rightSubTree;
+			} else {
+				return false;
+			}
+		}
 
-		int val = node.data;
-		if (lower != null && val <= lower)
-			return false;
-		if (upper != null && val >= upper)
-			return false;
-
-		if (!helper(node.right, val, upper))
-			return false;
-		if (!helper(node.left, lower, val))
-			return false;
-		return true;
 	}
 
 }

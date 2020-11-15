@@ -6,32 +6,43 @@ package com.sree.programs.important.askedininterviews;
 public class PaypalBalancedArray {
 
 	public static void main(String args[]) {
-		int arr[] = { 2, 1, 100, 6, 4 };
+		int arr1[] = { 2, 1, 6, 4 };
+		int arr[] = { 5, 5, 2, 5, 8 };
+		// int arr[] = { 5, 5, 2, 5, 8 };
+		int evenSum = 0, oddSum = 0;
 
-		int odd = 0, even = 0;
 		for (int i = 0; i < arr.length; i++) {
-			if (i % 2 == 0)
-				even += arr[i];
-			else
-				odd += arr[i];
+			if (i % 2 == 0) {
+				evenSum = evenSum + arr[i];
+			} else {
+				oddSum = oddSum + arr[i];
+			}
 		}
-		int ans = 0;
-		int prevOdd = 0, prevEven = 0;
+		System.out.println("even sum=" + evenSum);
+		System.out.println("odd sum=" + oddSum);
+		long leftEven = 0, leftOdd = 0;
+		int count = 0;
+
 		for (int i = 0; i < arr.length; i++) {
-			int x = even - prevEven;
-			int y = odd - prevOdd;
-			if (i % 2 == 0)
-				x -= arr[i];
-			else
-				y -= arr[i];
-			if (prevOdd + x == prevEven + y)
-				ans++;
-			if (i % 2 == 0)
-				prevEven += arr[i];
-			else
-				prevOdd += arr[i];
+			if (i % 2 == 0) {
+				if (oddSum + leftEven == leftOdd + evenSum - arr[i]) {
+					count++;
+				}
+
+				evenSum = evenSum - arr[i];
+				leftEven = leftEven + arr[i];
+			} else {
+				if (evenSum + leftOdd == leftEven + oddSum - arr[i]) {
+					count++;
+				}
+
+				oddSum = oddSum - arr[i];
+				leftOdd = leftOdd + arr[i];
+			}
 		}
-		System.out.println(ans);
+
+		// count++;
+		System.out.println("output=" + count);
+
 	}
-
 }

@@ -57,5 +57,12 @@ public class JavaString {
 		Arrays.sort(stringArrSort, (a, b) -> (a.compareTo(b)));
 		System.out.println("string Arr sort=" + Arrays.toString(stringArrSort));
 
+		/**
+		 * sub sequences
+		 * 
+		 */
+		String testString = "testString";
+		System.out.println("subSequence=" + testString.subSequence(0, 4));
+
 	}
 }
