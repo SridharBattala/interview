@@ -1,6 +1,6 @@
 package com.sree.programs.datastructures.java;
 
-import java.util.Arrays;
+import java.util.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,5 +32,10 @@ public class JavaHashSet {
 		arraySet.add(Arrays.asList(1, 2, 3));
 		arraySet.add(Arrays.asList(1, 2, 3, 4));
 		System.out.println("arraySet=" + arraySet);
+		/**
+		 * convert set to list
+		 */
+		List<List<Integer>> output = new ArrayList<>(arraySet);
+		System.out.println("list of list=" + arraySet);
 	}
 }

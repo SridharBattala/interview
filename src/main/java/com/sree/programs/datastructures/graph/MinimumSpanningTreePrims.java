@@ -5,7 +5,7 @@ package com.sree.programs.datastructures.graph;
  */
 import java.util.*;
 
-public class MinimumSpanningTree {
+public class MinimumSpanningTreePrims {
 	static int minDistance = 0;
 
 	static class Edge {

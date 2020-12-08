@@ -23,18 +23,21 @@ public class JavaLinkedList {
 		linkedList.size();
 
 		/**
-		 * list to array
-		 */
-		Integer[] listArray1 = (Integer[]) linkedList.toArray();
-		Integer[] listArray2 = linkedList.toArray(new Integer[linkedList.size()]);
-
-		/**
 		 * list to two dimensional array
 		 */
 		List<List<Integer>> list1 = new ArrayList<>();
 		list1.add(Arrays.asList(1, 2, 3));
 		list1.add(Arrays.asList(4, 5, 6));
-		int[][] arr = list1.toArray(new int[list1.size()][3]);
+
+		// convert
+		int[][] arr1 = new int[list1.size()][];
+		for (int i = 0; i < list1.size(); i++) {
+			arr1[i] = list1.get(i).stream().mapToInt(Integer::intValue).toArray();
+		}
+		// print
+		for (int[] arr2 : arr1) {
+			System.out.println("2d array" + Arrays.toString(arr2));
+		}
 
 		/**
 		 * list sort

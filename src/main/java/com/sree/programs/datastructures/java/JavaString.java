@@ -14,6 +14,7 @@ public class JavaString {
 		string.indexOf('r');// first occurance
 		string.lastIndexOf('r');// last occurance
 		System.out.println("split=" + string.split("\\.")[1]);
+		System.out.println("string split=" + "1|2".split("\\|")[0]);
 		// beginIndex , inclusive.
 		// endIndex , exclusive.
 		String subString = string.substring(1, 3);

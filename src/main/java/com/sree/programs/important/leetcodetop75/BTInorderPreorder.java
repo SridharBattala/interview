@@ -30,22 +30,24 @@ public class BTInorderPreorder {
 
 	public static int pIndex = 0;
 
-	public static Node makeBTree(int[] inOrder, int[] preOrder, int iStart, int iEnd) {
-		if (iStart > iEnd) {
+	public static Node makeBTree(int[] inOrder, int[] preOrder, int inOrderStart, int inOrderEnd) {
+		// base case 1
+		if (inOrderStart > inOrderEnd) {
 			return null;
 		}
 
 		Node root = new Node(preOrder[pIndex]);
 		pIndex++;
-		if (iStart == iEnd) {
+		// base case 2
+		if (inOrderStart == inOrderEnd) {
 			return root;
 		}
-
-		int index = getInorderIndex(inOrder, iStart, iEnd, root.data);
-		root.left = makeBTree(inOrder, preOrder, iStart, index - 1);
-		root.right = makeBTree(inOrder, preOrder, index + 1, iEnd);
+		// recursive case
+		int index = getInorderIndex(inOrder, inOrderStart, inOrderEnd, root.data);
+		root.left = makeBTree(inOrder, preOrder, inOrderStart, index - 1);
+		root.right = makeBTree(inOrder, preOrder, index + 1, inOrderEnd);
 		System.out.println("root=" + root.data + ", root.left=" + root.left.data + ", root.right=" + root.right.data);
-		System.out.println("start=" + iStart + ", end=" + iEnd + ", index=" + index);
+		System.out.println("start=" + inOrderStart + ", end=" + inOrderEnd + ", index=" + index);
 		return root;
 	}
 
