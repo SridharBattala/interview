@@ -8,17 +8,22 @@ public class JavaString {
 		 * string methods
 		 */
 		String string = "sridhar.battala";
+		string.startsWith("sri");
 		string.length();
+
 		string.charAt(1);
 		string.contains("s");
 		string.indexOf('r');// first occurance
 		string.lastIndexOf('r');// last occurance
 		System.out.println("split=" + string.split("\\.")[1]);
 		System.out.println("string split=" + "1|2".split("\\|")[0]);
+		System.out.println("string split with one char=" + Arrays.toString("1".split("1", -1)));
+
 		// beginIndex , inclusive.
 		// endIndex , exclusive.
 		String subString = string.substring(1, 3);
 		System.out.println("subString=" + subString);
+
 		/**
 		 * string to int
 		 */
@@ -38,7 +43,9 @@ public class JavaString {
 		StringBuilder builder = new StringBuilder();
 		builder.append("sridhar");
 		builder.append(" battala");
+		builder.deleteCharAt(builder.length() - 1);// deleting last character
 		System.out.println("String builder=" + builder.toString());
+		System.out.println("String builder length=" + builder.length());
 		/**
 		 * string sort
 		 */

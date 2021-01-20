@@ -20,9 +20,9 @@ public class BTInorderPreorder {
 	}
 
 	public static void main(String args[]) {
-		int[] inOrder = { 2, 5, 6, 10, 12, 14, 15 };
+		int[] inOrder = { 9, 3, 15, 20, 7 };
 
-		int[] preOrder = { 10, 5, 2, 6, 14, 12, 15 };
+		int[] preOrder = { 3, 9, 20, 15, 7 };
 		Node x = makeBTree(inOrder, preOrder, 0, inOrder.length - 1);
 		System.out.println("Constructed Tree : ");
 		printINORDER(x);
@@ -38,21 +38,17 @@ public class BTInorderPreorder {
 
 		Node root = new Node(preOrder[pIndex]);
 		pIndex++;
-		// base case 2
-		if (inOrderStart == inOrderEnd) {
-			return root;
-		}
+
 		// recursive case
-		int index = getInorderIndex(inOrder, inOrderStart, inOrderEnd, root.data);
+		int index = getInorderIndex(inOrder, root.data);
 		root.left = makeBTree(inOrder, preOrder, inOrderStart, index - 1);
 		root.right = makeBTree(inOrder, preOrder, index + 1, inOrderEnd);
-		System.out.println("root=" + root.data + ", root.left=" + root.left.data + ", root.right=" + root.right.data);
-		System.out.println("start=" + inOrderStart + ", end=" + inOrderEnd + ", index=" + index);
+
 		return root;
 	}
 
-	public static int getInorderIndex(int[] inOrder, int start, int end, int data) {
-		for (int i = start; i <= end; i++) {
+	public static int getInorderIndex(int[] inOrder, int data) {
+		for (int i = 0; i < inOrder.length; i++) {
 			if (inOrder[i] == data) {
 				return i;
 			}

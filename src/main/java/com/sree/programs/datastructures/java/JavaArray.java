@@ -13,6 +13,10 @@ public class JavaArray {
 		int[] array2 = new int[] { 1, 2, 3, 4, 5 };
 		int[] array3 = { 1, 2, 3, 4, 5 };
 		int length = array3.length;
+
+		/**
+		 * sub array
+		 */
 		int[] subArray = Arrays.copyOfRange(array3, 1, 3);
 		System.out.println("subArray=" + Arrays.toString(subArray));
 

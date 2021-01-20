@@ -22,11 +22,16 @@ public class JavaPair {
 		System.out.println("pair2 and pair3 equlas=" + pair1.equals(new Pair<>(1, "balaji")));
 		System.out.println("pair 1 is there in list=" + list.contains(new Pair<>(1, "sridhar")));
 
-		//
+		// removing duplicates
 		HashSet<Pair<Integer, String>> set = new HashSet<>();
 		set.add(pair1);
 		set.add(pair2);
 		set.add(pair3);
 		System.out.println("print set=" + set);
+		// looping pairs
+
+		for (Pair<Integer, String> pair : set) {
+			System.out.println("key=" + pair.getKey() + ", value=" + pair.getValue());
+		}
 	}
 }

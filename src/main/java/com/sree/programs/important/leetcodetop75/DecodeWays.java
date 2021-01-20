@@ -4,6 +4,7 @@ public class DecodeWays {
 	public static void main(String args[]) {
 
 		System.out.println("count=" + numDecodings("1234"));
+		System.out.println("count=" + numDecodings("2223"));
 
 	}
 

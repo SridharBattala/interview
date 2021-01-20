@@ -22,10 +22,11 @@ public class JavaHashSet {
 		/**
 		 * methods
 		 */
-		set.clear();// remove all the mappings
-		set.size();
-		set.isEmpty();
-		set.remove("pravali");
+		// set.clear();// remove all the mappings
+		// set.size();
+		// set.isEmpty();
+		// set.remove("pravali");
+
 		// duplicate arrays
 		Set<List<Integer>> arraySet = new HashSet<>();
 		arraySet.add(Arrays.asList(1, 2, 3));
